@@ -1,8 +1,8 @@
 /****************************************************
- * FIZ-o-matic
+ * fiz-o-matic
  * https://fiz-o-matic.net/
  *
- * fiz-o-matic Smart Cockpit configuration
+ * fiz-o-matic SmartDisplay configuration
  *
  *
  * Author: Brun
