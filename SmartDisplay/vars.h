@@ -2,7 +2,7 @@
  * fiz-o-matic
  * https://fiz-o-matic.net/
  *
- * fiz-o-matic Smart Cockpit
+ * fiz-o-matic SmartDisplay
  *
  *  Definations of Variables which are used.
  *  All Variables are defined in this file.

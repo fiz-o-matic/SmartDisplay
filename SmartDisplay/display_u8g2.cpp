@@ -10,7 +10,6 @@
  *       https://github.com/olikraus/U8g2_Arduino
  *  Wiki: https://github.com/olikraus/u8g2/wiki
  *
- *  Author: Brun von der Gönne
  *
  ****************************************************/
 #include <Arduino.h>
