@@ -33,11 +33,29 @@ void tinyGPS_loop() {
     while (GPS_SERIAL.available())
       gps.encode(GPS_SERIAL.read());
       //DEBUG_PRINT(GPS_SERIAL.read());
+      //DEBUG_PRINT(F("."));
   } while (millis() - start < 500);
 
+  DEBUG_PRINT(F("chars processed: "));
+  DEBUG_PRINTLN(gps.charsProcessed());
 
+  if ( gps.charsProcessed() >= 1000 ) {
+    gps_available = true;
+  }
+  else {
+    gps_available = false;
+  }
+
+  DEBUG_PRINT(F("Satelites: "));
+  DEBUG_PRINTLN(gps.satellites.value());
+  
   if ( gps.speed.isValid() ) {
+    speed_available = true;
     speed = gps.speed.kmph();
+  }
+  else {
+    speed = 0;
+    speed_available = false;
   }
 
   if ( gps.satellites.isValid() ) {
@@ -60,7 +78,11 @@ void tinyGPS_loop() {
     month = gps.date.month();
     day = gps.date.day();
 
-    hour = gps.time.hour() + timezone_gmt;
+    hour = gps.time.hour() + TIME_ZONE;
+    if ( hour >= 24 ) {
+      hour = hour - 24;
+      day = day + 1;
+    }
     minute = gps.time.minute();
     second = gps.time.second();
     
@@ -71,7 +93,7 @@ void tinyGPS_loop() {
     DEBUG_PRINT(F(":"));
     DEBUG_PRINTLN(second);
 
-    if ( summertime_EU(year, month, day, hour, timezone_gmt) ) {
+    if ( summertime_EU(year, month, day, hour, TIME_ZONE) ) {
       hour++;
     }
 
@@ -79,31 +101,10 @@ void tinyGPS_loop() {
 }
 
 
-void calc_trip() {
-  if ( !timer_check(&trip_timer, 60000) ) return;
-  if ( !engine_running ) return;
-
-  trip_distance_tmp = get_distance(gps_latitude, gps_longitude, gps_latitude_old, gps_longitude_old);
-  trip_distance += trip_distance_tmp;
-  gps_latitude_old = gps_latitude;
-  gps_longitude_old = gps_longitude;
-
-  //trip_time_tmp = unixTime(hour, minute, second, year, month, day);
-  //trip_time += trip_time_tmp - trip_time_old;
-
-}
 
 
-/*
- *    caclulating distance
- */
-float get_distance(float latitude1, float longitude1, float latitude2, float longitude2) {
-  float delLat = (latitude2 - latitude1) * 111194.9;
-  float delLong = 111194.9 * (longitude2 - longitude1) * cos(radians((latitude2 + latitude1) / 2));
-  float distance = sqrt(pow(delLat, 2) + pow(delLong, 2));
 
-  return distance;
-}
+
 
 /*
    Summer time Yes or No

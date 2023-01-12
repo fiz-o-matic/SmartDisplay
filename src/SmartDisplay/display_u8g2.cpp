@@ -72,6 +72,7 @@ void clear_screen() {
  * Display MENUs
  */
 void display() {
+  // display_menu_set is needed to skip menu entries
   display_menu_set = false;
 
   while(!display_menu_set) {
@@ -147,7 +148,7 @@ void display() {
       #endif
       #ifdef MENU_bord_voltage_int
       case MENU_bord_voltage_int:
-        menu_values(STR_BORD_VOLT_INT, bord_voltage_int, 1, "V");
+        menu_values(STR_BORD_VOLT_INT, bord_voltage_int + 0.05, 1, "V");
         display_menu_set = true;
         break;
       #endif
@@ -173,7 +174,7 @@ void display() {
       #endif
       #ifdef MENU_trip
       case MENU_trip:
-        menu_values(STR_TRIP, trip_distance, DEC, "km");
+        menu_values(STR_TRIP, trip_distance, 1, "km");
         display_menu_set = true;
         break;
       #endif
@@ -242,8 +243,14 @@ void menu_speed(int DESC, float VALUE, byte DIGITS, String SUFFIX) {
     print_string(DESC);*/
     u8g2.setCursor(LAYOUT_SPEED_SPEED);
     u8g2.setFont(big_font);
-    sprintf (buf, "%3d", (int)speed);
-    u8g2.print(buf);
+    if ( speed_available ) {
+      sprintf (buf, "%3d", (int)speed);
+      u8g2.print(buf);
+    }
+    else {
+      u8g2.print("---");
+    }
+    
 
     u8g2.setCursor(LAYOUT_SPEED_KMH);
     u8g2.setFont(medium_font);
@@ -336,15 +343,25 @@ void menu_gps_1() {
     print_string(STR_COORDINATES);
     u8g2.setCursor(LAYOUT_2VALUES_VALUE1);
     u8g2.setFont(small_font);
-    //u8g2.setCursor(0, 32);
-    print_string(STR_LAT);
-    u8g2.print(F(" : "));
-    u8g2.print(gps_latitude,6);
+    if ( gps_available ) {
+      //u8g2.setCursor(0, 32);
+      print_string(STR_LAT);
+      u8g2.print(F(" : "));
+      u8g2.print(gps_latitude,6);
 
-    u8g2.setCursor(LAYOUT_2VALUES_VALUE2);
-    print_string(STR_LONG);
-    u8g2.print(F(": "));
-    u8g2.print(gps_longitude,6);
+      u8g2.setCursor(LAYOUT_2VALUES_VALUE2-2);
+      print_string(STR_LONG);
+      u8g2.print(F(": "));
+      u8g2.print(gps_longitude,6);
+
+      u8g2.setCursor(LAYOUT_2VALUES_VALUE3-4);
+      print_string(STR_SATELITES);
+      u8g2.print(F(": "));
+      u8g2.print(gps_longitude,0);
+    }
+    else {
+      print_string(STR_NOGPS);
+    }
 
   } while ( u8g2.nextPage() );
 }
@@ -362,9 +379,12 @@ void print_string(int string_id) {
     case STR_BATT1: DISPLAY_PRINT(F(STR_BATT1_S)); break;
     case STR_BATT2: DISPLAY_PRINT(F(STR_BATT2_S)); break;
     case STR_RPM: DISPLAY_PRINT(F(STR_RPM_S)); break;
+    
+    case STR_NOGPS: DISPLAY_PRINT(F(STR_NOGPS_S)); break;
     case STR_ALTITUTE: DISPLAY_PRINT(F(STR_ALTITUTE_S)); break;
     case STR_LAT: DISPLAY_PRINT(F(STR_LAT_S)); break;
     case STR_LONG: DISPLAY_PRINT(F(STR_LONG_S)); break;
+    case STR_SATELITES: DISPLAY_PRINT(F(STR_SATELITES_S)); break;
     case STR_BORD_VOLT_INT: DISPLAY_PRINT(F(STR_BORD_VOLT_INT_S)); break;
 
 

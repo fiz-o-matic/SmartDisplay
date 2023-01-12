@@ -21,9 +21,9 @@ extern boolean batt1_voltage_active;
 extern float batt2_voltage;
 extern boolean batt2_voltage_active;
 
-
 extern float temp_out;
 extern boolean temp_out_active;
+
 extern int rpm;
 extern boolean rpm_active;
 
@@ -39,6 +39,7 @@ extern boolean fuel_l_active;
 extern float water_temp;
 extern boolean water_temp_active;
 
+extern boolean speed_available;
 extern int speed;
 extern int altitude;
 
@@ -49,10 +50,11 @@ extern byte day;
 extern byte month;
 extern byte year;
 
-extern unsigned long trip_distance;
-extern float trip_distance_tmp;
+extern float trip_distance;
+//extern float trip_distance_tmp;
 extern unsigned long trip_timer;
 
+extern boolean gps_available;
 extern int gps_satellites;
 extern float gps_latitude;
 extern long gps_latitude_long;
@@ -65,7 +67,7 @@ extern float gps_longitude_old;
 
 extern boolean summer_time;
 extern int timezone;
-extern byte timezone_gmt;
+//extern byte timezone_gmt;
 
 extern boolean display_active;
 extern boolean display_block;

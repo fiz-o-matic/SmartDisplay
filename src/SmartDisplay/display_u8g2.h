@@ -70,6 +70,7 @@ int OldPos = 0;
 
 
 // Strings
+
 #define STR_SPEED 1
 #define STR_SPEED_S "Geschwindigkeit"
 #define STR_WATER_TEMP 2
@@ -88,25 +89,30 @@ int OldPos = 0;
 #define STR_BATT2_S "Batterie 2"
 #define STR_RPM 9
 #define STR_RPM_S "RPM"
-#define STR_ALTITUTE 10
+
+#define STR_NOGPS 10
+#define STR_NOGPS_S "kein GPS verf\xfcgbar"
+#define STR_ALTITUTE 11
 #define STR_ALTITUTE_S "H\xf6he"
-#define STR_LAT 11
+#define STR_LAT 12
 #define STR_LAT_S "Latitude"
-#define STR_LONG 12
+#define STR_LONG 13
 #define STR_LONG_S "Longitude"
-#define STR_TEMP 13
+#define STR_SATELITES 14
+#define STR_SATELITES_S "Satelites"
+#define STR_TEMP 15
 #define STR_TEMP_S "Temperatur"
-#define STR_OUT 14
+#define STR_OUT 16
 #define STR_OUT_S "Aussen"
-#define STR_IN 15
+#define STR_IN 17
 #define STR_IN_S "Innen"
-#define STR_HUMIDITY 16
+#define STR_HUMIDITY 18
 #define STR_HUMIDITY_S "Luftfeuchtigkeit"
-#define STR_COORDINATES 17
+#define STR_COORDINATES 19
 #define STR_COORDINATES_S "GPS Koordinaten"
-#define STR_TRIP 18
+#define STR_TRIP 20
 #define STR_TRIP_S "Trip"
-#define STR_BORD_VOLT_INT 19
+#define STR_BORD_VOLT_INT 21
 #define STR_BORD_VOLT_INT_S "Bordspannung (KI)"
 
 

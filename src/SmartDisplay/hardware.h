@@ -15,6 +15,7 @@
 #define KEY 3
 // maximum key press intervall in milliseconds
 #define KEY_DEBOUNCE 120
+#define KEY_LONGPRESS 3000
 
 #define GPS_BAUD 9600
 #define GPS_RXPin A0
@@ -41,6 +42,9 @@
 
 #define GPS_ENABLED
 
+// Volatege multiplication
+#define A3_MULTIPLICATOR 0.02273438
+
 // OneWire Bus
 #define ONEWIRE
 #define ONE_WIRE_BUS 5
@@ -53,6 +57,7 @@
 #ifdef U8X8_HAVE_HW_SPI
 #include <SPI.h>
 #endif
+
 
 #define DISPLAY_CS 6
 #define DISPLAY_DC 7
@@ -78,6 +83,9 @@
 #define ONEWIRE
 #define ONE_WIRE_BUS 5
 
+// Volatege multiplication
+#define A3_MULTIPLICATOR 0.02273438
+
 #define DOGS102_T25
 #define U8G2_DISPLAY
 #define ENABLE_DISPLAY
@@ -90,7 +98,7 @@
 //Menu and Feature defination
 #define MENU_clock 1
 #define MENU_speed 2
-#define MENU_bord_voltage 3
+#define MENU_bord_voltage_int 3
 #define MENU_altitude 4
 #define MENU_gps 5
 #define MENU_trip 6

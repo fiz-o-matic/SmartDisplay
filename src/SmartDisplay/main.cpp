@@ -43,7 +43,7 @@ void setup() {
   RSTCTRL.RSTFR |= RSTCTRL_WDRF_bm ;
   wdt_enable(WDT_PERIOD_8KCLK_gc);
   #else if
-  wdt_enable(WDTO_8S);   // Watchdog auf 1 s stellen
+  wdt_enable(WDTO_8S);   // Watchdog auf 8 s stellen
   #endif
 
   DEBUG_PRINTLN("init Display");
@@ -63,6 +63,9 @@ void loop() {
   // run the Display Loop
   display_loop();
 
+  // run key handling
+  key_loop();
+
   // run the OneWire Loop
   onewire_loop();
 
@@ -80,47 +83,6 @@ void loop() {
 
 
 
-
-void key_low_interrupt() {
-  if ( key_pressed == 0 ) {
-    key_pressed = millis();
-  }
-  else if ( (key_pressed + 100) <= millis() ) {
-    MainMenuPos++;
-    key_pressed = millis() + 200;
-  }
-  else {
-    delay(50);
-  }
-}
-
-void key_released_interrupt() {
-  if ( ( key_pressed + 200 ) <= millis() ) {
-    key_pressed = 0;
-  }
-}
-
-void key_interrupt() {
-
-  if ( digitalRead(KEY) == LOW ) {
-    if ( timer_check(&key_timer, (KEY_DEBOUNCE*3) ) ) {
-      key_pressed = millis();
-    }
-  }
-  else {
-    if ( (key_pressed + KEY_DEBOUNCE) <= millis() ) {
-      if (!display_active) {
-        reset_display_pwrsave();
-      }
-      else {
-        MainMenuPos++;
-        reset_display_pwrsave();
-      }
-      key_pressed = millis();
-    }
-  }
-  display_loop();
-}
 
 
 

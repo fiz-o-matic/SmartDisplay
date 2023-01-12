@@ -19,6 +19,9 @@
 //#define HW_ALPHA_LCD
 
 
+// Timezone in GMT
+#define TIME_ZONE 1
+
 /*
  * optional configuration
  */
@@ -31,3 +34,6 @@
 
 // Calibrate the Voltage 
 #define VOLTAGE_CALIBRATION 0.9
+
+// time between trip calculation
+#define TRIP_CALC_TIMER 10000

@@ -11,6 +11,15 @@
  * 
  * Full Documentatition under:
  * https://wiki.fiz-o-matic.net/
+ * 
+ * 
+ * 
+ * This Sketch file is empty.
+ * 
+ * To configure the SmartDisplay use the config.h.
+ * 
+ * The setup and main functions are in the main.cpp.
+ * 
  ****************************************************/
 
 
