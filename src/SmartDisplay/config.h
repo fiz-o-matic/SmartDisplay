@@ -37,3 +37,6 @@
 
 // time between trip calculation
 #define TRIP_CALC_TIMER 10000
+
+// GPS Speed Offset
+#define GSP_SPEED_OFFSER 5

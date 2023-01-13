@@ -51,7 +51,7 @@ void tinyGPS_loop() {
   
   if ( gps.speed.isValid() ) {
     speed_available = true;
-    speed = gps.speed.kmph();
+    speed = gps.speed.kmph() + GSP_SPEED_OFFSER;
   }
   else {
     speed = 0;
