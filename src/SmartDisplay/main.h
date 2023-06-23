@@ -47,6 +47,7 @@ void can_send();
 // from input.cpp
 void input_init();
 void input_loop();
+void engine_state();
 
 // from onewire.cpp
 void onewire_init();
@@ -55,6 +56,12 @@ void onewire_loop();
 // from key.cpp
 void key_interrupt();
 void key_loop();
+
+// from trip.cpp
+void calc_trip();
+void read_eeprom_trip1();
+void write_eeprom_trip1();
+void clear_eeprom_trip1();
 
 
 /*

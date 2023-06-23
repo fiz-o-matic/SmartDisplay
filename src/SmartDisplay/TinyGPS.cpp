@@ -20,6 +20,12 @@
 TinyGPSPlus gps;
 
 void tinyGPS_init() {
+
+  #ifdef GSP_RESET_PIN
+  pinMode(GSP_RESET_PIN, OUTPUT);
+  digitalWrite(GSP_RESET_PIN, HIGH); 
+  #endif
+
   GPS_SERIAL.begin(GPS_BAUD);
 
   //setupGPSpower();
@@ -36,7 +42,7 @@ void tinyGPS_loop() {
       //DEBUG_PRINT(F("."));
   } while (millis() - start < 500);
 
-  DEBUG_PRINT(F("chars processed: "));
+  DEBUG_PRINT(F("GPS chars processed: "));
   DEBUG_PRINTLN(gps.charsProcessed());
 
   if ( gps.charsProcessed() >= 1000 ) {
@@ -51,7 +57,10 @@ void tinyGPS_loop() {
   
   if ( gps.speed.isValid() ) {
     speed_available = true;
-    speed = gps.speed.kmph() + GSP_SPEED_OFFSER;
+    speed = gps.speed.kmph();
+    if ( speed >= 10 ) {
+      speed += GSP_SPEED_OFFSER;
+    }
   }
   else {
     speed = 0;
@@ -87,11 +96,11 @@ void tinyGPS_loop() {
     second = gps.time.second();
     
     DEBUG_PRINT(F("GPS Time: "));
-    DEBUG_PRINT(hour);
+    DEBUG_PRINT(String(hour, DEC));
     DEBUG_PRINT(F(":"));
-    DEBUG_PRINT(minute);
+    DEBUG_PRINT(String(minute, DEC));
     DEBUG_PRINT(F(":"));
-    DEBUG_PRINTLN(second);
+    DEBUG_PRINTLN(String(second, DEC));
 
     if ( summertime_EU(year, month, day, hour, TIME_ZONE) ) {
       hour++;
@@ -177,27 +186,39 @@ void sendUBX(uint8_t *MSG, uint8_t len) {
 void setupGPSpower() {
   //Set GPS ot Power Save Mode
   uint8_t setPSM[] = { 0xB5, 0x62, 0x06, 0x11, 0x02, 0x00, 0x08, 0x01, 0x22, 0x92 }; // Setup for Power Save Mode (Default Cyclic 1s)
+  DEBUG_PRINTLN(F("Set GPS in Power Safe Mode"));
+  sendUBX(setPSM, sizeof(setPSM)/sizeof(uint8_t));
+  delay(30000);
 
   //Set GPS ot Max Performance Mode (default)
-  //uint8_t setPSM[] = { 0xB5, 0x62, 0x06, 0x11, 0x02, 0x00, 0x08, 0x00, 0x21, 0x91 };
+  uint8_t setDEFAULT[] = { 0xB5, 0x62, 0x06, 0x11, 0x02, 0x00, 0x08, 0x00, 0x21, 0x91 };
+  DEBUG_PRINTLN(F("Set GPS ot Max Performance Mode (default)"));
+  sendUBX(setDEFAULT, sizeof(setDEFAULT)/sizeof(uint8_t));
+  delay(30000);
 
-  sendUBX(setPSM, sizeof(setPSM)/sizeof(uint8_t));
-  DEBUG_PRINTLN(F("Set GPS in Power Safe Mode"));
+  // ????
+  //uint8_t setUPDATE[] = { 0xB5, 0x62, 0x06, 0x3B, 0x2C, 0x00, 0x01, 0x06, 0x00, 0x00, 0x00, 0x90, 0x03, 0x00, 0x10, 0x27, 0x00, 0x00, 0x10, 0x27, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x2C, 0x01, 0x00, 0x00, 0x4F, 0xC1, 0x03, 0x00, 0x87, 0x02, 0x00, 0x00, 0xFF, 0x00, 0x00, 0x00, 0x64, 0x40, 0x01, 0x00, 0xE4, 0x8B }; // Setup for Power Save Mode (Default Cyclic 1s)
 
-  uint8_t setUPDATE[] = { 0xB5, 0x62, 0x06, 0x3B, 0x2C, 0x00, 0x01, 0x06, 0x00, 0x00, 0x00, 0x90, 0x03, 0x00, 0x10, 0x27, 0x00, 0x00, 0x10, 0x27, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x2C, 0x01, 0x00, 0x00, 0x4F, 0xC1, 0x03, 0x00, 0x87, 0x02, 0x00, 0x00, 0xFF, 0x00, 0x00, 0x00, 0x64, 0x40, 0x01, 0x00, 0xE4, 0x8B }; // Setup for Power Save Mode (Default Cyclic 1s)
-  sendUBX(setUPDATE, sizeof(setUPDATE)/sizeof(uint8_t));
 
   uint8_t GPSoff[] = {0xB5, 0x62, 0x02, 0x41, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x4D, 0x3B };
-  //sendUBX(GPSoff, sizeof(GPSoff)/sizeof(uint8_t));
   DEBUG_PRINTLN(F("GPS OFF"));
+  sendUBX(GPSoff, sizeof(GPSoff)/sizeof(uint8_t));
   
-  //delay(30000);
+  delay(30000);
  
   //Restart GPS
   uint8_t GPSon[] = {0xB5, 0x62, 0x02, 0x41, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x4C, 0x37 };
   //sendUBX(GPSon, sizeof(GPSon)/sizeof(uint8_t));
   DEBUG_PRINTLN(F("GPS ON"));
+
   
+  //Set GPS ot Max Performance Mode (default)
+  uint8_t setDEFAULT2[] = { 0xB5, 0x62, 0x06, 0x11, 0x02, 0x00, 0x08, 0x00, 0x21, 0x91 };
+  DEBUG_PRINTLN(F("Set GPS ot Max Performance Mode (default)"));
+  sendUBX(setDEFAULT2, sizeof(setDEFAULT2)/sizeof(uint8_t));
+  //delay(30000);
+
+
 }
 
 #else

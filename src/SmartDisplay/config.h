@@ -33,10 +33,25 @@
 #define TURN_ON_VOLTAGE 13.5
 
 // Calibrate the Voltage 
-#define VOLTAGE_CALIBRATION 0.9
+#define VOLTAGE_CALIBRATION 1
 
 // time between trip calculation
 #define TRIP_CALC_TIMER 10000
 
 // GPS Speed Offset
 #define GSP_SPEED_OFFSER 5
+
+
+// sitch automaticly to spped menu if engine is running
+#define DISPLAY_AUTO_SWITCH
+
+
+// EEPROM lifetime is 100,000 write cycles.
+// With 16 values in EEPROM and write every km max. 
+// EEPROM Lifetime is 1,600,000 km
+
+// number of values in eeprom
+#define EEPROM_VAL_TRIP1 16
+
+// save trip only if distance is > x km
+#define EEPROM_SAVE_TRIP1 1

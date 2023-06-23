@@ -32,12 +32,12 @@ static const int RXPin = GPS_RXPin, TXPin = GPS_TXPin;
 
 int gps_satellites = 0;
 
-#ifdef DEBUG
+/*#ifdef DEBUG
  // The serial connection to the GPS device
- /*#include <SoftwareSerial.h>
+ #include <SoftwareSerial.h>
  SoftwareSerial ss(GPS_RXPin, GPS_TXPin);
- #define GPS_SERIAL ss*/
- #define GPS_SERIAL Serial
+ #define GPS_SERIAL ss
+ //#define GPS_SERIAL Serial1
 #else
- #define GPS_SERIAL Serial
-#endif
+ #define GPS_SERIAL Serial1
+#endif*/

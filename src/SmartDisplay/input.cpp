@@ -19,27 +19,33 @@ void input_init() {
 void input_loop() {
   if ( !timer_check(&io_timer, IO_TIMER) ) return;
 
-  a3_sum = analogRead(IN1);
-  a3_tmp[IO_ARRAY-1] = a3_sum;
+  a_sum = analogRead(IN1);
+  a_tmp[IO_ARRAY-1] = a_sum;
 
   for (i = 0; i < IO_ARRAY-1; i++) {
-    a3_tmp[i] = a3_tmp[i+1];
-    a3_sum += a3_tmp[i];
+    a_tmp[i] = a_tmp[i+1];
+    a_sum += a_tmp[i];
   }
-  a3 = a3_sum / IO_ARRAY;
+  a = a_sum / IO_ARRAY;
 
   //Serial.println(a3, DEC);
 
   //bord_voltage = float(map(analogRead(IN1), 0, 1023, 0, 23300)) / 1000;
-  bord_voltage_int = float(map(a3, 0, 1023, 0, 23280)) / 1000;
+  //bord_voltage_int = float(map(a3, 0, 1023, 0, 23280)) / 1000;
+  bord_voltage_int = float(map(a, 0, 1023, 0, VOLTAGE_RANGE_MV)) / 1000;
   //bord_voltage_int = float(a3 * A3_MULTIPLICATOR * VOLTAGE_MULTIPLICATOR_CALIBRATION);
-  //Serial.println(analogRead(IN1), DEC);
+  //DEBUG_PRINTLN(analogRead(IN1), DEC);
   bord_voltage_int = bord_voltage_int * VOLTAGE_CALIBRATION;
   //DEBUG_PRINTLN(bord_voltage_int);
+  DEBUG_PRINT("RAW Input: ");
+  DEBUG_PRINTLN(analogRead(IN1));
+  DEBUG_PRINT("VOLTAGE: ");
+  DEBUG_PRINTLN(bord_voltage_int);
 
 
 
-  if ( bord_voltage_int > TURN_ON_VOLTAGE ) {
+
+  /*if ( bord_voltage_int > TURN_ON_VOLTAGE ) {
     reset_display_pwrsave();
     if ( !engine_running ) {
       MainMenuPos = MENU_speed;
@@ -51,6 +57,39 @@ void input_loop() {
       MainMenuPos = MENU_clock;
       engine_running = false;
     }
+  }*/
+
+}
+
+
+
+void engine_state() {
+
+  if ( bord_voltage_int > TURN_ON_VOLTAGE ) {
+    reset_display_pwrsave();
+    if ( !engine_running ) {
+      #ifdef DISPLAY_AUTO_SWITCH
+      MainMenuPos = MENU_speed;
+      #endif
+      engine_running = true;
+    }
   }
+  else {
+    if ( engine_running ) {
+      #ifdef DISPLAY_AUTO_SWITCH
+      MainMenuPos = MENU_clock;
+      #endif
+      engine_running = false;
+    }
+  }
+
+      
+  if (speed >= 5 ) {
+      #ifdef DISPLAY_AUTO_SWITCH
+      MainMenuPos = MENU_speed;
+      #endif
+      engine_running = true;
+  }
+
 
 }

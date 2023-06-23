@@ -17,7 +17,7 @@
 void setup() {
   Serial.begin(9600);
 
-  delay(3000);
+  //delay(3000);
   DEBUG_PRINTLN("init start");
 
   pinMode(KEY, INPUT);       // Pin 2 ist INT0
@@ -36,9 +36,9 @@ void setup() {
 
   // enable Watchdog
   #ifdef ARDUINO_ARCH_MEGAAVR
-  Serial.println("init Watchdog");
+  DEBUG_PRINTLN("init Watchdog");
   if (RSTCTRL.RSTFR & RSTCTRL_WDRF_bm) {
-    Serial.println(F("It was a watchdog reset."));
+    DEBUG_PRINTLN(F("It was a watchdog reset."));
   }
   RSTCTRL.RSTFR |= RSTCTRL_WDRF_bm ;
   wdt_enable(WDT_PERIOD_8KCLK_gc);
@@ -51,6 +51,20 @@ void setup() {
   
 
   DEBUG_PRINTLN("init finished");
+
+  read_eeprom_trip1();
+  /*write_eeprom_trip1();
+  delay(1000);
+  write_eeprom_trip1();
+  write_eeprom_trip1();
+  write_eeprom_trip1();
+  write_eeprom_trip1();
+  write_eeprom_trip1();
+  write_eeprom_trip1();
+  write_eeprom_trip1();
+  write_eeprom_trip1();*/
+  //clear_eeprom_trip1();
+  //delay(10000);
 
 }
 
@@ -74,6 +88,9 @@ void loop() {
 
   // read Input ports
   input_loop();
+
+  // handle the engine running state
+  engine_state();
 
   // reset Watchdog
   wdt_reset();

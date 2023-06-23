@@ -24,9 +24,9 @@ bool timer_check(unsigned long *timer, unsigned long delay);
 #define IO_ARRAY 10
 
 
-long a3_sum = 0;
-int a3_tmp[IO_ARRAY];
-int a3 = 0;
+long a_sum = 0;
+int a_tmp[IO_ARRAY];
+int a = 0;
 int i = 0;
 
 #define IO_TIMER 500 // 1s

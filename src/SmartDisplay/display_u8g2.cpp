@@ -203,6 +203,7 @@ void menu_clock() {
   //clear_screen();
   u8g2.firstPage();
   do {
+    u8g2.clearBuffer();
     u8g2.setFont(big_font);
     u8g2.setFontPosTop();
     u8g2.setCursor(LAYOUT_CLOCK_1);
@@ -212,14 +213,15 @@ void menu_clock() {
     u8g2.setFont(medium_font);
     u8g2.setFontPosTop();
     u8g2.setCursor(LAYOUT_CLOCK_2);
-    if (temp_out_active) {
+    /*if (temp_out_active) {
       m = (temp_out - ( (int) temp_out ))*10;
       sprintf (buf, "%02d.%1d", (int)temp_out, m);
     }
     else {
       m = (temp_out - ( (int) temp_out ))*10;
       sprintf (buf, "%02d.%1d", (int)temp_out, m);
-    }
+    }*/
+    dtostrf(temp_out, 5, 1, buf);
     u8g2.print(buf);
     //u8g2.print(temp_out, 1);
     u8g2.print(F("\xb0"));
@@ -234,6 +236,7 @@ void menu_speed(int DESC, float VALUE, byte DIGITS, String SUFFIX) {
 
   u8g2.firstPage();
   do {
+    u8g2.clearBuffer();
     u8g2.setFontPosTop();
 
     /*u8g2.setFont(small_font);
@@ -244,7 +247,8 @@ void menu_speed(int DESC, float VALUE, byte DIGITS, String SUFFIX) {
     u8g2.setCursor(LAYOUT_SPEED_SPEED);
     u8g2.setFont(big_font);
     if ( speed_available ) {
-      sprintf (buf, "%3d", (int)speed);
+      dtostrf(speed, 3, 0, buf);
+      //sprintf (buf, "%3d", (int)speed);
       u8g2.print(buf);
     }
     else {
@@ -262,14 +266,15 @@ void menu_speed(int DESC, float VALUE, byte DIGITS, String SUFFIX) {
     u8g2.print(buf);
 
     u8g2.setCursor(LAYOUT_SPEED_TEMP);
-    if (temp_out_active) {
+    /*if (temp_out_active) {
       m = (temp_out - ( (int) temp_out ))*10;
       sprintf (buf, "%02d.%1d", (int)temp_out, m);
     }
     else {
       m = (temp_out - ( (int) temp_out ))*10;
       sprintf (buf, "%02d.%1d", (int)temp_out, m);
-    }
+    }*/
+    dtostrf(temp_out, 5, 1, buf);
     u8g2.print(buf);
     u8g2.print(F("\xb0"));
     u8g2.print(F("C"));
@@ -281,20 +286,25 @@ void menu_speed(int DESC, float VALUE, byte DIGITS, String SUFFIX) {
 void menu_values(int DESC, float VALUE, byte DIGITS, String SUFFIX) {
 
   if ( DIGITS == 1 ) {
-    i_tmp = (VALUE - ( (int) VALUE ))*10;
-    sprintf (buf, "%3d.%1d", (int)VALUE, i_tmp);
+    //i_tmp = (VALUE - ( (int) VALUE ))*10;
+    //sprintf (buf, "%3d.%1d", (int)VALUE, i_tmp);
+    dtostrf(VALUE, 5, 1, buf);
   }
   else if ( DIGITS == 2 ) {
-    i_tmp = (VALUE - ( (int) VALUE ))*100;
-    sprintf (buf, "%2d.%02d", (int)VALUE, i_tmp);
+    //i_tmp = (VALUE - ( (int) VALUE ))*100;
+    //sprintf (buf, "%2d.%02d", (int)VALUE, i_tmp);
+    dtostrf(VALUE, 5, 2, buf);
   }
   else {
     sprintf (buf, "%5d", (int)VALUE);
+    dtostrf(VALUE, 5, 0, buf);
   }
 
 
   u8g2.firstPage();
   do {
+    u8g2.clearBuffer();
+
     u8g2.setFont(small_font);
     u8g2.setFontPosTop();
 
@@ -314,6 +324,8 @@ void menu_values(int DESC, float VALUE, byte DIGITS, String SUFFIX) {
 void menu_2values(int DESC, long VALUE1, byte DIGITS1, String SUFFIX1, long VALUE2, byte DIGITS2, String SUFFIX2) {
   u8g2.firstPage();
   do {
+    u8g2.clearBuffer();
+
     u8g2.setFont(small_font);
     u8g2.setFontPosTop();
     u8g2.setCursor(LAYOUT_2VALUES_DESC);
@@ -336,6 +348,8 @@ void menu_2values(int DESC, long VALUE1, byte DIGITS1, String SUFFIX1, long VALU
 void menu_gps_1() {
   u8g2.firstPage();
   do {
+    u8g2.clearBuffer();
+
     u8g2.setFont(small_font);
     u8g2.setFontPosTop();
     u8g2.setCursor(LAYOUT_2VALUES_DESC);
@@ -366,7 +380,18 @@ void menu_gps_1() {
   } while ( u8g2.nextPage() );
 }
 
-
+/*String format(float value, String format) {
+  int m = 0;
+  if ( value >= 0 ) {
+    m = (value - ( (int) value ))*10;
+    sprintf (buf, format, (int)value, m);
+  }
+  else {
+    m = (0 - value + ( (int) value ))*10;
+    sprintf (buf, format, (int)value, m);
+  }
+  return buf;
+}*/
 
 void print_string(int string_id) {
   switch (string_id) {

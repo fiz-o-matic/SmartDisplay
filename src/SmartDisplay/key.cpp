@@ -76,6 +76,4 @@ void key_loop() {
             }
         }
     }
-    
-    
 }

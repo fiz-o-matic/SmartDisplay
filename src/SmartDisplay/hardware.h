@@ -12,12 +12,12 @@
 
 
 //global definition
-#define KEY 3
+//#define KEY 3
 // maximum key press intervall in milliseconds
 #define KEY_DEBOUNCE 120
 #define KEY_LONGPRESS 3000
 
-#define GPS_BAUD 9600
+// ONLY for debugging
 #define GPS_RXPin A0
 #define GPS_TXPin A1
 
@@ -29,9 +29,56 @@
 
 
 // analog Input
-#define IN1 A3
-#define IN1_MULTIPLICATOR 0.015234
+//#define IN1 A3
+//#define IN1_MULTIPLICATOR 0.015234
 
+
+
+/*
+ * BETA Version with DOGS102 LCD
+ */
+#ifdef HW_BETA
+
+#define KEY PIN_A5
+
+// analog Input
+#define IN1 A4
+#define IN1_MULTIPLICATOR 0.0136
+
+#define GPS_ENABLED
+#define GPS_BAUD 9600
+#define GPS_SERIAL Serial1
+#define GSP_RESET_PIN 11
+
+// OneWire Bus
+#define ONEWIRE
+#define ONE_WIRE_BUS A6
+
+// CAN Bus
+#define CANBUS
+
+// Volatege multiplication
+#define A3_MULTIPLICATOR 0.02273438
+#define VOLTAGE_RANGE_MV 13950
+
+#define DOGS102_T25
+#define U8G2_DISPLAY
+//#define ENABLE_DISPLAY
+
+
+#define DISPLAY_CS 24
+#define DISPLAY_RST 23
+#define DISPLAY_DC 22
+
+//Menu and Feature defination
+#define MENU_clock 1
+#define MENU_speed 2
+#define MENU_bord_voltage_int 3
+#define MENU_trip 4
+#define MENU_altitude 5
+#define MENU_gps 6
+
+#endif
 
 
 
@@ -40,7 +87,17 @@
  */
 #ifdef HW_ALPHA_OLED
 
+#define KEY 3
+
+// analog Input
+#define IN1 A3
+#define IN1_MULTIPLICATOR 0.015234
+
 #define GPS_ENABLED
+#define GPS_BAUD 9600
+#define GPS_RXPin A0
+#define GPS_TXPin A1
+#define GPS_SERIAL Serial
 
 // Volatege multiplication
 #define A3_MULTIPLICATOR 0.02273438
@@ -51,7 +108,7 @@
 
 #define SH1107
 #define U8G2_DISPLAY
-#define ENABLE_DISPLAY
+//#define ENABLE_DISPLAY
 #include <U8g2lib.h>
 
 #ifdef U8X8_HAVE_HW_SPI
@@ -78,7 +135,16 @@
  */
 #ifdef HW_ALPHA_LCD
 
+#define KEY 3
+
+// analog Input
+#define IN1 A3
+#define IN1_MULTIPLICATOR 0.015234
+
 #define GPS_ENABLED
+#define GPS_BAUD 9600
+#define GPS_SERIAL Serial
+
 // OneWire Bus
 #define ONEWIRE
 #define ONE_WIRE_BUS 5
@@ -88,7 +154,7 @@
 
 #define DOGS102_T25
 #define U8G2_DISPLAY
-#define ENABLE_DISPLAY
+//#define ENABLE_DISPLAY
 
 
 #define DISPLAY_CS 8
@@ -200,7 +266,7 @@
 
 #ifdef SH1106_T25
 #define U8G2_DISPLAY
-#define ENABLE_DISPLAY
+//#define ENABLE_DISPLAY
 #include <U8g2lib.h>
 
 #ifdef U8X8_HAVE_HW_SPI
@@ -216,7 +282,7 @@
 
 #ifdef SH1107M4808
 #define U8G2_DISPLAY
-#define ENABLE_DISPLAY
+//#define ENABLE_DISPLAY
 #include <U8g2lib.h>
 
 #ifdef U8X8_HAVE_HW_SPI
@@ -231,7 +297,7 @@
 
 #ifdef SH1107M32
 #define U8G2_DISPLAY
-#define ENABLE_DISPLAY
+//#define ENABLE_DISPLAY
 #include <U8g2lib.h>
 
 #ifdef U8X8_HAVE_HW_SPI
