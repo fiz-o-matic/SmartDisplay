@@ -113,8 +113,8 @@ void write_eeprom_trip1() {
     tmp_i++;
   }
 
-  randomSeed(analogRead(A4));
-  byte rndnum = random(0,EEPROM_VAL_TRIP1);
+  //randomSeed(analogRead(A4));
+  //byte rndnum = random(0,EEPROM_VAL_TRIP1);
   /*while ( rndnum == tmp_i ) {
     DEBUG_PRINTLN("new rndnum...");
     //DEBUG_PRINTLN(rndnum);
@@ -131,12 +131,12 @@ void write_eeprom_trip1() {
     DEBUG_PRINTLN(trip_distance);
     EEPROM.put(tmp_i*4, trip_distance);
   }
-  else {
+  /*else {
     DEBUG_PRINTLN("NO NEED to write EEPROM");
     //DEBUG_PRINT(F(" TRIP: "));
     //DEBUG_PRINTLN(trip_distance);
     trip_distance += float(rndnum)*8/10;
-  }
+  }*/
   
 }
 
