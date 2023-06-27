@@ -65,7 +65,7 @@ void input_loop() {
 
 void engine_state() {
 
-  if ( bord_voltage_int > TURN_ON_VOLTAGE ) {
+  if ( ( bord_voltage_int > TURN_ON_VOLTAGE ) or ( speed >= 6 ) ) {
     reset_display_pwrsave();
     if ( !engine_running ) {
       #ifdef DISPLAY_AUTO_SWITCH
@@ -84,12 +84,12 @@ void engine_state() {
   }
 
       
-  if (speed >= 5 ) {
+  /*if (speed >= 5 ) {
       #ifdef DISPLAY_AUTO_SWITCH
       MainMenuPos = MENU_speed;
       #endif
       engine_running = true;
-  }
+  }*/
 
 
 }
