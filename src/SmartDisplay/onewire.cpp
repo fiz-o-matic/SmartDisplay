@@ -19,7 +19,7 @@
 
 #include <DallasTemperature.h>
 
-boolean temp_out_active_int = false;
+//boolean temp_out_active = false;
 
 
 OneWire oneWire(ONE_WIRE_BUS);
@@ -34,7 +34,7 @@ void onewire_init() {
     //temp_out_int = sensors.getTempCByIndex(0);
 
     if (sensors.getTempCByIndex(0) != -127 ) {
-      temp_out_active_int = true;
+      temp_out_active = true;
       DEBUG_PRINTLN("Found 1Wire Sensor");
     }
     else {
@@ -43,7 +43,7 @@ void onewire_init() {
 }
 
 void onewire_loop() {
-  if (temp_out_active_int) {
+  if (temp_out_active) {
     sensors.requestTemperatures(); // Send the command to get temperatures
     temp_out = sensors.getTempCByIndex(0);
   }

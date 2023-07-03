@@ -178,6 +178,12 @@ void display() {
         display_menu_set = true;
         break;
       #endif
+      #ifdef MENU_Info
+      case MENU_Info:
+        menu_info();
+        display_menu_set = true;
+        break;
+      #endif
 
 
       default: {
@@ -206,26 +212,27 @@ void menu_clock() {
     u8g2.clearBuffer();
     u8g2.setFont(big_font);
     u8g2.setFontPosTop();
-    u8g2.setCursor(LAYOUT_CLOCK_1);
-    sprintf(buf, "%02d:%02d", hour, minute);
-    u8g2.print(buf);
+    
+    if ( temp_out_active ) {
+      u8g2.setCursor(LAYOUT_CLOCK_CLOCK);
+      sprintf(buf, "%02d:%02d", hour, minute);
+      u8g2.print(buf);
 
-    u8g2.setFont(medium_font);
-    u8g2.setFontPosTop();
-    u8g2.setCursor(LAYOUT_CLOCK_2);
-    /*if (temp_out_active) {
-      m = (temp_out - ( (int) temp_out ))*10;
-      sprintf (buf, "%02d.%1d", (int)temp_out, m);
+      u8g2.setFont(medium_font);
+      u8g2.setFontPosTop();
+      u8g2.setCursor(LAYOUT_CLOCK_TEMP);
+    
+      dtostrf(temp_out, 5, 1, buf);
+      u8g2.print(buf);
+      //u8g2.print(temp_out, 1);
+      u8g2.print(F("\xb0"));
+      u8g2.print(F("C"));
     }
     else {
-      m = (temp_out - ( (int) temp_out ))*10;
-      sprintf (buf, "%02d.%1d", (int)temp_out, m);
-    }*/
-    dtostrf(temp_out, 5, 1, buf);
-    u8g2.print(buf);
-    //u8g2.print(temp_out, 1);
-    u8g2.print(F("\xb0"));
-    u8g2.print(F("C"));
+      u8g2.setCursor(LAYOUT_CLOCK_NO_TEMP);
+      sprintf(buf, "%02d:%02d", hour, minute);
+      u8g2.print(buf);
+    }
   } while ( u8g2.nextPage() );
 
 
@@ -260,25 +267,25 @@ void menu_speed(int DESC, float VALUE, byte DIGITS, String SUFFIX) {
     u8g2.setFont(medium_font);
     u8g2.print(F("km/h"));
 
-    u8g2.setFont(medium_font);
-    u8g2.setCursor(LAYOUT_SPEED_CLOCK);
-    sprintf(buf, "%02d:%02d", hour, minute);
-    u8g2.print(buf);
 
-    u8g2.setCursor(LAYOUT_SPEED_TEMP);
-    /*if (temp_out_active) {
-      m = (temp_out - ( (int) temp_out ))*10;
-      sprintf (buf, "%02d.%1d", (int)temp_out, m);
+    if ( temp_out_active ) {
+      u8g2.setFont(medium_font);
+      u8g2.setCursor(LAYOUT_SPEED_CLOCK);
+      sprintf(buf, "%02d:%02d", hour, minute);
+      u8g2.print(buf);
+
+      u8g2.setCursor(LAYOUT_SPEED_TEMP);
+      dtostrf(temp_out, 5, 1, buf);
+      u8g2.print(buf);
+      u8g2.print(F("\xb0"));
+      u8g2.print(F("C"));
     }
     else {
-      m = (temp_out - ( (int) temp_out ))*10;
-      sprintf (buf, "%02d.%1d", (int)temp_out, m);
-    }*/
-    dtostrf(temp_out, 5, 1, buf);
-    u8g2.print(buf);
-    u8g2.print(F("\xb0"));
-    u8g2.print(F("C"));
-
+      u8g2.setFont(medium_font);
+      u8g2.setCursor(LAYOUT_SPEED_CLOCK_NO_TEMP);
+      sprintf(buf, "%02d:%02d", hour, minute);
+      u8g2.print(buf);
+    }
   } while ( u8g2.nextPage() );
 }
 
@@ -377,6 +384,28 @@ void menu_gps_1() {
       print_string(STR_NOGPS);
     }
 
+  } while ( u8g2.nextPage() );
+}
+
+void menu_info() {
+  u8g2.firstPage();
+  do {
+    u8g2.clearBuffer();
+
+    u8g2.setFont(small_font);
+    u8g2.setFontPosTop();
+    u8g2.setCursor(LAYOUT_INFO_FIZ_O_MATIC);
+    u8g2.print(F("@fiz-o-matic.net"));
+    u8g2.setCursor(LAYOUT_INFO_PRODUCT);
+    u8g2.print(F("    SmartDisplay"));
+    
+    u8g2.setCursor(LAYOUT_INFO_SW);
+    u8g2.print(F("SW: "));
+    u8g2.print(F(VERSION_SW));
+    u8g2.setCursor(LAYOUT_INFO_HW);
+    u8g2.print(F("HW: "));
+    u8g2.print(F(VERSION_HW));
+  
   } while ( u8g2.nextPage() );
 }
 

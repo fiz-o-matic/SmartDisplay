@@ -52,6 +52,7 @@ void menu_speed(int DESC, float VALUE, byte DIGITS, String SUFFIX);
 void menu_values(int DESC, float VALUE, byte DIGITS, String SUFFIX);
 void menu_gps_1();
 void print_string(int string_id);
+void menu_info();
 
 
 // from main.cpp

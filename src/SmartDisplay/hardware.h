@@ -39,11 +39,15 @@
  */
 #ifdef HW_BETA
 
+#define VERSION_HW "BETA w/ DOGS102"
+
 #define KEY PIN_A5
 
 // analog Input
 #define IN1 A4
-#define IN1_MULTIPLICATOR 0.0136
+// Volatege multiplication
+//#define A3_MULTIPLICATOR 0.02273438
+#define VOLTAGE_RANGE_MV 18750
 
 #define GPS_ENABLED
 #define GPS_BAUD 9600
@@ -52,14 +56,11 @@
 
 // OneWire Bus
 #define ONEWIRE
-#define ONE_WIRE_BUS A6
+#define ONE_WIRE_BUS PIN_A6
 
 // CAN Bus
-#define CANBUS
+//#define CANBUS
 
-// Volatege multiplication
-#define A3_MULTIPLICATOR 0.02273438
-#define VOLTAGE_RANGE_MV 13950
 
 #define DOGS102_T25
 #define U8G2_DISPLAY
@@ -77,6 +78,7 @@
 #define MENU_trip 4
 #define MENU_altitude 5
 #define MENU_gps 6
+#define MENU_Info 7
 
 #endif
 
@@ -87,11 +89,16 @@
  */
 #ifdef HW_ALPHA_OLED
 
+#define VERSION_HW "ALPHA with OLED"
+
 #define KEY 3
 
 // analog Input
 #define IN1 A3
 #define IN1_MULTIPLICATOR 0.015234
+// Volatege multiplication
+#define VOLTAGE_RANGE_MV 13950
+
 
 #define GPS_ENABLED
 #define GPS_BAUD 9600
@@ -135,11 +142,16 @@
  */
 #ifdef HW_ALPHA_LCD
 
+#define VERSION_HW "ALPHA with LCD"
+
 #define KEY 3
 
 // analog Input
 #define IN1 A3
 #define IN1_MULTIPLICATOR 0.015234
+// Volatege multiplication
+#define VOLTAGE_RANGE_MV 13950
+
 
 #define GPS_ENABLED
 #define GPS_BAUD 9600

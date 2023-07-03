@@ -18,6 +18,7 @@
 //#define HW_ALPHA_OLED
 //#define HW_ALPHA_LCD
 
+#define VERSION_SW "0.8.1"
 
 // Timezone in GMT
 #define TIME_ZONE 1
@@ -30,7 +31,7 @@
 #define DISPLAY_TIMEOUT 600000 // 60s
 
 // Voltage value to turn on
-#define TURN_ON_VOLTAGE 13.5
+#define TURN_ON_VOLTAGE 13.2
 
 // Calibrate the Voltage 
 #define VOLTAGE_CALIBRATION 1
