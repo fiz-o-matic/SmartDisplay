@@ -18,7 +18,7 @@
 //#define HW_ALPHA_OLED
 //#define HW_ALPHA_LCD
 
-#define VERSION_SW "0.8.1"
+
 
 // Timezone in GMT
 #define TIME_ZONE 1

@@ -24,3 +24,6 @@
 
 
  
+#define VERSION_SW "0.8.1"
+#define BUILD "20230721"
+

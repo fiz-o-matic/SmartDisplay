@@ -42,8 +42,8 @@ void tinyGPS_loop() {
       //DEBUG_PRINT(F("."));
   } while (millis() - start < 500);
 
-  DEBUG_PRINT(F("GPS chars processed: "));
-  DEBUG_PRINTLN(gps.charsProcessed());
+  //DEBUG_PRINT(F("GPS chars processed: "));
+  //DEBUG_PRINTLN(gps.charsProcessed());
 
   if ( gps.charsProcessed() >= 1000 ) {
     gps_available = true;
@@ -52,8 +52,8 @@ void tinyGPS_loop() {
     gps_available = false;
   }
 
-  DEBUG_PRINT(F("Satelites: "));
-  DEBUG_PRINTLN(gps.satellites.value());
+  //DEBUG_PRINT(F("Satelites: "));
+  //DEBUG_PRINTLN(gps.satellites.value());
   
   if ( gps.speed.isValid() ) {
     speed_available = true;
@@ -95,12 +95,12 @@ void tinyGPS_loop() {
     minute = gps.time.minute();
     second = gps.time.second();
     
-    DEBUG_PRINT(F("GPS Time: "));
+    /*DEBUG_PRINT(F("GPS Time: "));
     DEBUG_PRINT(String(hour, DEC));
     DEBUG_PRINT(F(":"));
     DEBUG_PRINT(String(minute, DEC));
     DEBUG_PRINT(F(":"));
-    DEBUG_PRINTLN(String(second, DEC));
+    DEBUG_PRINTLN(String(second, DEC));*/
 
     if ( summertime_EU(year, month, day, hour, TIME_ZONE) ) {
       hour++;

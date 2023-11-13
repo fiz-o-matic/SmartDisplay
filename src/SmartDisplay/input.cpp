@@ -37,10 +37,10 @@ void input_loop() {
   //DEBUG_PRINTLN(analogRead(IN1), DEC);
   bord_voltage_int = bord_voltage_int * VOLTAGE_CALIBRATION;
   //DEBUG_PRINTLN(bord_voltage_int);
-  DEBUG_PRINT("RAW Input: ");
+  /*DEBUG_PRINT("RAW Input: ");
   DEBUG_PRINTLN(analogRead(IN1));
   DEBUG_PRINT("VOLTAGE: ");
-  DEBUG_PRINTLN(bord_voltage_int);
+  DEBUG_PRINTLN(bord_voltage_int);*/
 
 
 

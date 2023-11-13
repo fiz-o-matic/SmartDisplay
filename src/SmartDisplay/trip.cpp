@@ -64,18 +64,22 @@ void read_eeprom_trip1() {
 
   for (byte i=0;i<=EEPROM_VAL_TRIP1;i++) {
     EEPROM.get( i*4, f );
-    DEBUG_PRINT(i*4);
-    DEBUG_PRINT(F(": "));
-    DEBUG_PRINTLN(f);
+    //DEBUG_PRINT(i*4);
+    //DEBUG_PRINT(F(": "));
+    //DEBUG_PRINTLN(f);
     if ( f > tmp ) {
       tmp = f;
       tmp_i = i;
       trip_distance = f;
     }
   }
+  //DEBUG_PRINT(tmp_i*4);
+  //DEBUG_PRINT(F(": "));
+  //DEBUG_PRINTLN(tmp);
+  DEBUG_PRINT(F("TRIP: "));
   DEBUG_PRINT(tmp_i*4);
   DEBUG_PRINT(F(": "));
-  DEBUG_PRINTLN(tmp);
+  DEBUG_PRINTLN(trip_distance);
   
 }
 
@@ -125,10 +129,10 @@ void write_eeprom_trip1() {
   DEBUG_PRINT(F(" TRIP: "));
   DEBUG_PRINTLN(trip_distance);
   if ( tmp + EEPROM_SAVE_TRIP1 <= trip_distance  ) {
-    DEBUG_PRINT(F("WRITE: "));
+    /*DEBUG_PRINT(F("WRITE: "));
     DEBUG_PRINT(tmp_i*4);
     DEBUG_PRINT(F(" : "));
-    DEBUG_PRINTLN(trip_distance);
+    DEBUG_PRINTLN(trip_distance);*/
     EEPROM.put(tmp_i*4, trip_distance);
   }
   /*else {

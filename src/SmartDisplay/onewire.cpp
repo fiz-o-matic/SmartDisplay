@@ -17,18 +17,31 @@
 
 #ifdef ONEWIRE
 
+//#include <DallasTemperature.h>
+#include <OneWire.h>
 #include <DallasTemperature.h>
 
 //boolean temp_out_active = false;
 
 
-OneWire oneWire(ONE_WIRE_BUS);
+OneWire oneWire(18);
 DallasTemperature sensors(&oneWire);
 
 
 void onewire_init() {
+  pinMode(18,OUTPUT);
+  digitalWrite(18,HIGH);
+  delay(10);
+  digitalWrite(18, LOW);
+  delay(10);
+
+  pinMode(18,INPUT);
+  digitalWrite(18, LOW);
+
+
   sensors.begin();
 
+  Serial.println(sensors.getDeviceCount(), DEC);
   sensors.requestTemperatures(); // Send the command to get temperatures
 
     //temp_out_int = sensors.getTempCByIndex(0);

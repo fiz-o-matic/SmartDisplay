@@ -14,7 +14,9 @@
 //#include "can_vars.h"
 //#include "vars.h"
 #include "vars_global.h"
-
+#include "OneWire.h"
+#include "SmartDisplay.ino"
+//#include "canbus.h"
 
 #include <avr/wdt.h>
 #include <time.h>

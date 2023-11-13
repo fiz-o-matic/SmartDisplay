@@ -11,13 +11,29 @@
 #include <Arduino.h>
 #include "main.h"
 
-#include <OneWire.h>
+
 
 
 void setup() {
   Serial.begin(9600);
 
   //delay(3000);
+
+  DEBUG_PRINT( F("#fiz-o-matic.net "));
+  DEBUG_PRINT( F("SmartDisplay "));
+  DEBUG_PRINT( F("Version "));
+  DEBUG_PRINT( F(VERSION_SW));
+  DEBUG_PRINT( F(" Build: "));
+  DEBUG_PRINTLN( F(BUILD));
+
+  DEBUG_PRINT( F("#Compiled: "));
+  DEBUG_PRINT( F(__DATE__));
+  DEBUG_PRINT( F(", "));
+  DEBUG_PRINT( F(__TIME__));
+  DEBUG_PRINT( F(", "));
+  DEBUG_PRINTLN( F(__VERSION__));
+
+
   DEBUG_PRINTLN("init start");
 
   pinMode(KEY, INPUT);       // Pin 2 ist INT0
@@ -27,8 +43,8 @@ void setup() {
   //attachInterrupt(digitalPinToInterrupt(KEY), key_released_interrupt, RISING);
   DEBUG_PRINTLN("init TinyGPS");
   tinyGPS_init();
-  //DEBUG_PRINTLN("init CAN");
-  //can_init();
+  DEBUG_PRINTLN("init CAN");
+  can_init();
   DEBUG_PRINTLN("init 1Wire");
   onewire_init();
   DEBUG_PRINTLN("init Input");
@@ -84,7 +100,7 @@ void loop() {
   onewire_loop();
 
   // run the CAN Loop
-  //can_loop();
+  can_loop();
 
   // read Input ports
   input_loop();

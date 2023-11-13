@@ -22,10 +22,7 @@
 #define GPS_TXPin A1
 
 
-// CAN Bus
-//#define CANBUS
-#define CAN_IRQ 10
-#define CAN_CS 7
+
 
 
 // analog Input
@@ -56,10 +53,12 @@
 
 // OneWire Bus
 #define ONEWIRE
-#define ONE_WIRE_BUS PIN_A6
+//#define ONE_WIRE_BUS PIN_A6
 
-// CAN Bus
-//#define CANBUS
+
+#define CANBUS
+#define CAN_IRQ 10
+#define CAN_CS 7
 
 
 #define DOGS102_T25
@@ -77,8 +76,9 @@
 #define MENU_bord_voltage_int 3
 #define MENU_trip 4
 #define MENU_altitude 5
-#define MENU_gps 6
-#define MENU_Info 7
+#define MENU_CAN 6
+#define MENU_gps 7
+#define MENU_Info 8
 
 #endif
 

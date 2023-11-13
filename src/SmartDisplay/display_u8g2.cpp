@@ -15,6 +15,7 @@
 #include <Arduino.h>
 #include "display_u8g2.h"
 #include "vars_global.h"
+#include "canvalues.h"
 
 #ifdef U8G2_DISPLAY
 
@@ -36,7 +37,7 @@ void display_loop() {
     display_pwrsave(true);
     MainMenuPos = 1;
     //MainMenuPos++;
-    //clear_screen();
+    clear_screen();
   }
   #endif
 
@@ -178,6 +179,14 @@ void display() {
         display_menu_set = true;
         break;
       #endif
+
+      #ifdef MENU_CAN
+      case MENU_CAN:
+        menu_can();
+        display_menu_set = true;
+        break;
+      #endif
+
       #ifdef MENU_Info
       case MENU_Info:
         menu_info();
@@ -205,6 +214,7 @@ void display() {
  * simple clock with date
  */
 void menu_clock() {
+  noInterrupts();
   int m;
   //clear_screen();
   u8g2.firstPage();
@@ -235,12 +245,12 @@ void menu_clock() {
     }
   } while ( u8g2.nextPage() );
 
-
+  interrupts();
 }
 
 void menu_speed(int DESC, float VALUE, byte DIGITS, String SUFFIX) {
   int m;
-
+  noInterrupts();
   u8g2.firstPage();
   do {
     u8g2.clearBuffer();
@@ -287,11 +297,12 @@ void menu_speed(int DESC, float VALUE, byte DIGITS, String SUFFIX) {
       u8g2.print(buf);
     }
   } while ( u8g2.nextPage() );
+  interrupts();
 }
 
 
 void menu_values(int DESC, float VALUE, byte DIGITS, String SUFFIX) {
-
+  noInterrupts();
   if ( DIGITS == 1 ) {
     //i_tmp = (VALUE - ( (int) VALUE ))*10;
     //sprintf (buf, "%3d.%1d", (int)VALUE, i_tmp);
@@ -326,9 +337,11 @@ void menu_values(int DESC, float VALUE, byte DIGITS, String SUFFIX) {
     u8g2.setCursor(LAYOUT_VALUES_SUFFIX);
     u8g2.print(SUFFIX);
   } while ( u8g2.nextPage() );
+  interrupts();
 }
 
 void menu_2values(int DESC, long VALUE1, byte DIGITS1, String SUFFIX1, long VALUE2, byte DIGITS2, String SUFFIX2) {
+  noInterrupts();
   u8g2.firstPage();
   do {
     u8g2.clearBuffer();
@@ -350,9 +363,47 @@ void menu_2values(int DESC, long VALUE1, byte DIGITS1, String SUFFIX1, long VALU
     u8g2.print(gps_longitude,6);
 
   } while ( u8g2.nextPage() );
+  interrupts();
 }
 
+void menu_can() {
+  byte pos = 0;
+  noInterrupts();
+
+  u8g2.firstPage();
+  do {
+    u8g2.clearBuffer();
+
+    u8g2.setFont(small_font);
+    u8g2.setFontPosTop();
+
+    u8g2.setCursor(LAYOUT_VALUES_DESC);
+    //print_string(DESC);
+    u8g2.print(can_value_name1);
+    u8g2.print(can_value_name2);
+
+    u8g2.setFont(big_font);
+    u8g2.setCursor(LAYOUT_VALUES_VALUE);
+    //u8g2.print(buf);
+
+    //DEBUG_PRINTLN(String(strlen(can_value), DEC));
+
+    for ( byte i = 1; i < 6 - strlen(can_value); i++ ) {
+      u8g2.print(F(" "));
+    }
+    u8g2.print(can_value);
+    u8g2.setFont(medium_font);
+
+    u8g2.setCursor(LAYOUT_VALUES_SUFFIX);
+    //u8g2.print(SUFFIX);
+    u8g2.print(can_value_type);
+  } while ( u8g2.nextPage() );
+  interrupts();
+}
+
+
 void menu_gps_1() {
+  noInterrupts();
   u8g2.firstPage();
   do {
     u8g2.clearBuffer();
@@ -385,28 +436,34 @@ void menu_gps_1() {
     }
 
   } while ( u8g2.nextPage() );
+  interrupts();
 }
 
 void menu_info() {
+  noInterrupts();
   u8g2.firstPage();
   do {
     u8g2.clearBuffer();
 
     u8g2.setFont(small_font);
     u8g2.setFontPosTop();
-    u8g2.setCursor(LAYOUT_INFO_FIZ_O_MATIC);
-    u8g2.print(F("@fiz-o-matic.net"));
     u8g2.setCursor(LAYOUT_INFO_PRODUCT);
     u8g2.print(F("    SmartDisplay"));
+    u8g2.setCursor(LAYOUT_INFO_FIZ_O_MATIC);
+    u8g2.print(F(" @fiz-o-matic.net"));
     
     u8g2.setCursor(LAYOUT_INFO_SW);
     u8g2.print(F("SW: "));
     u8g2.print(F(VERSION_SW));
+    u8g2.print(F(" ("));
+    u8g2.print(F(BUILD));
+    u8g2.print(F(")"));
     u8g2.setCursor(LAYOUT_INFO_HW);
     u8g2.print(F("HW: "));
     u8g2.print(F(VERSION_HW));
   
   } while ( u8g2.nextPage() );
+  interrupts();
 }
 
 /*String format(float value, String format) {
