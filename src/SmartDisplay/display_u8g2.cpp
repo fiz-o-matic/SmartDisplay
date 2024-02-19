@@ -27,6 +27,9 @@ int i_tmp = 0;
 
 void display_init(void) {
   u8g2.begin();
+  u8g2.enableUTF8Print();
+  clear_screen();
+  menu_logo();
 }
 
 
@@ -46,6 +49,12 @@ void display_loop() {
     display();
     display_block = false;
   }
+  #ifdef CAN_CS
+  if ( !digitalRead(CAN_CS) ) {
+        DEBUG_PRINT("SPI BUS is used for CAN. Try ist next time...")
+        digitalWrite(DISPLAY_CS, HIGH);
+    }
+  #endif
 }
 
 
@@ -63,6 +72,7 @@ void display_pwrsave(bool pwrsave) {
 }
 
 void clear_screen() {
+  u8g2.clearBuffer();
   u8g2.clearDisplay();
 }
 
@@ -82,16 +92,20 @@ void display() {
       clear_screen();
       OldPos = MainMenuPos;
     }
+    //DEBUG_PRINT(String(MainMenuPos));
 
     switch (MainMenuPos) {
       case MENU_clock:
         menu_clock();
+		//menu_logo();
         display_menu_set = true;
         break;
+      #ifdef MENU_speed
       case MENU_speed:
         menu_speed(STR_SPEED, speed, DEC, "km/h");
         display_menu_set = true;
         break;
+      #endif
       #ifdef MENU_temp
       case MENU_temp:
         if ( water_temp_active ) {
@@ -182,8 +196,27 @@ void display() {
 
       #ifdef MENU_CAN
       case MENU_CAN:
-        menu_can();
-        display_menu_set = true;
+        if ( display_req_addr != 0x00 ) {
+          menu_can();
+          display_menu_set = true;
+        }
+        else {
+          MainMenuPos++;
+        }
+        break;
+        
+        break;
+      #endif
+
+      #ifdef MENU_CAN_NEXT
+      case MENU_CAN_NEXT:
+        if ( can_next() ) {
+          MainMenuPos = MENU_CAN; 
+          //delay(500);
+        }
+        else {
+          MainMenuPos++;
+        }
         break;
       #endif
 
@@ -209,6 +242,14 @@ void display() {
 }
 
 
+void menu_logo() {
+	noInterrupts();
+	u8g2.firstPage();
+  	do {
+		u8g2.drawXBM(LOGO_Xpos, LOGO_Ypos, LOGO_width, LOGO_height, logo);
+	} while ( u8g2.nextPage() );
+	interrupts();
+}
 
 /*
  * simple clock with date
@@ -366,8 +407,8 @@ void menu_2values(int DESC, long VALUE1, byte DIGITS1, String SUFFIX1, long VALU
   interrupts();
 }
 
-void menu_can() {
-  byte pos = 0;
+
+void menu_values(char DESC[18], char VALUE[9], char SUFFIX[5]) {
   noInterrupts();
 
   u8g2.firstPage();
@@ -379,26 +420,98 @@ void menu_can() {
 
     u8g2.setCursor(LAYOUT_VALUES_DESC);
     //print_string(DESC);
-    u8g2.print(can_value_name1);
-    u8g2.print(can_value_name2);
+	u8g2.print(DESC);
+
+    u8g2.setFont(big_font);
+    u8g2.setCursor(LAYOUT_VALUES_VALUE);
+    //u8g2.print(buf);
+	u8g2.print(VALUE);
+    u8g2.setFont(medium_font);
+
+    u8g2.setCursor(LAYOUT_VALUES_SUFFIX);
+    u8g2.print(SUFFIX);
+  } while ( u8g2.nextPage() );
+  interrupts();
+}
+
+void menu_2values(char DESC[18], char VALUE1[9], char SUFFIX1[5], char VALUE2[9], char SUFFIX2[5]) {
+	noInterrupts();
+  	u8g2.firstPage();
+  	do {
+		u8g2.clearBuffer();
+
+		u8g2.setFont(small_font);
+		u8g2.setFontPosTop();
+		u8g2.setCursor(LAYOUT_2VALUES_DESC);
+		u8g2.print(DESC);
+
+		u8g2.setFont(small_font);
+		u8g2.setCursor(LAYOUT_2VALUES_SUFFIX1);
+    	u8g2.print(SUFFIX1);
+		u8g2.setCursor(LAYOUT_2VALUES_SUFFIX2);
+    	u8g2.print(SUFFIX2);
+
+		u8g2.setFont(medium_font);
+		u8g2.setCursor(LAYOUT_2VALUES_VALUE1);
+		u8g2.print(VALUE1);
+		u8g2.setCursor(LAYOUT_2VALUES_VALUE2);
+		u8g2.print(VALUE2);
+		
+
+	} while ( u8g2.nextPage() );
+  	interrupts();
+}
+
+void menu_can() {
+  //CAN.hase();
+  //DEBUG_PRINT("CAN Menue...");
+  //byte pos = 0;
+
+	if ( display_msg_type == MSG_TYPE_1VALUE ) {
+	  	menu_values(display_desc, display_value1, display_value1_suffix);
+	}
+	else if ( display_msg_type == MSG_TYPE_2VALUES ) {
+		menu_2values(display_desc, display_value1, display_value1_suffix, display_value2, display_value2_suffix);
+	}
+	else {
+		menu_values(display_desc, display_value1, display_value1_suffix);
+	}
+
+  /*noInterrupts();
+
+  u8g2.firstPage();
+  do {
+    u8g2.clearBuffer();
+
+    u8g2.setFont(small_font);
+    u8g2.setFontPosTop();
+
+    u8g2.setCursor(LAYOUT_VALUES_DESC);
+    //print_string(DESC);
+    //u8g2.print(can_value_name1);
+    u8g2.print(display_desc);
 
     u8g2.setFont(big_font);
     u8g2.setCursor(LAYOUT_VALUES_VALUE);
     //u8g2.print(buf);
 
     //DEBUG_PRINTLN(String(strlen(can_value), DEC));
-
-    for ( byte i = 1; i < 6 - strlen(can_value); i++ ) {
-      u8g2.print(F(" "));
-    }
-    u8g2.print(can_value);
+    
+	u8g2.print(display_value1);
     u8g2.setFont(medium_font);
 
     u8g2.setCursor(LAYOUT_VALUES_SUFFIX);
     //u8g2.print(SUFFIX);
-    u8g2.print(can_value_type);
+	if ( strcmp(display_value1_suffix, "°C") == 0) {
+        u8g2.print(F("\xb0"));
+      	u8g2.print(F("C"));
+    }
+	else {
+		u8g2.print(display_value1_suffix);
+	}
+    
   } while ( u8g2.nextPage() );
-  interrupts();
+  interrupts();*/
 }
 
 
@@ -410,10 +523,10 @@ void menu_gps_1() {
 
     u8g2.setFont(small_font);
     u8g2.setFontPosTop();
-    u8g2.setCursor(LAYOUT_2VALUES_DESC);
+    u8g2.setCursor(LAYOUT_GPS_DESC);
     //u8g2.print(DESC);
     print_string(STR_COORDINATES);
-    u8g2.setCursor(LAYOUT_2VALUES_VALUE1);
+    u8g2.setCursor(LAYOUT_GPS_VALUE1);
     u8g2.setFont(small_font);
     if ( gps_available ) {
       //u8g2.setCursor(0, 32);
@@ -421,12 +534,12 @@ void menu_gps_1() {
       u8g2.print(F(" : "));
       u8g2.print(gps_latitude,6);
 
-      u8g2.setCursor(LAYOUT_2VALUES_VALUE2-2);
+      u8g2.setCursor(LAYOUT_GPS_VALUE2-2);
       print_string(STR_LONG);
       u8g2.print(F(": "));
       u8g2.print(gps_longitude,6);
 
-      u8g2.setCursor(LAYOUT_2VALUES_VALUE3-4);
+      u8g2.setCursor(LAYOUT_GPS_VALUE3-4);
       print_string(STR_SATELITES);
       u8g2.print(F(": "));
       u8g2.print(gps_longitude,0);

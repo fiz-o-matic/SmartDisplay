@@ -23,6 +23,8 @@
 
 
 
+//CAN canbus = CAN();
+
 // from main.cpp
 void key_interrupt();
 bool timer_check(unsigned long *timer, unsigned long delay);
@@ -41,10 +43,11 @@ void tinyGPS_loop();
 // from can...
 void can_init();
 void can_loop(); 
+
 // from can_receive.cpp
-void can_receive(int packetSize);
+//void can_receive(int packetSize);
 // from can_send.cpp
-void can_send();
+//void can_send();
 
 // from input.cpp
 void input_init();

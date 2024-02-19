@@ -15,7 +15,7 @@
 
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   //delay(3000);
 
@@ -44,6 +44,7 @@ void setup() {
   DEBUG_PRINTLN("init TinyGPS");
   tinyGPS_init();
   DEBUG_PRINTLN("init CAN");
+  //can_init();
   can_init();
   DEBUG_PRINTLN("init 1Wire");
   onewire_init();
@@ -88,6 +89,7 @@ void loop() {
   // run the tinyGPS Loop
   #ifdef GPS_ENABLED
   tinyGPS_loop();
+  //delay(100);
   #endif
 
   // run the Display Loop
@@ -101,7 +103,7 @@ void loop() {
 
   // run the CAN Loop
   can_loop();
-
+  
   // read Input ports
   input_loop();
 

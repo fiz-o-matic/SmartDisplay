@@ -15,6 +15,7 @@
 #include "hardware.h"
 #include "vars_global.h"
 #include "SmartDisplay.ino"
+#include "canvalues.h"
 
 
 
@@ -46,8 +47,10 @@
 
 #define DISPLAY_PRINT(x)  u8g2.print(x)
 
+void clear_screen();
 void display_pwrsave(bool pwrsave);
 void display();
+void menu_logo();
 void menu_clock();
 void menu_speed(int DESC, float VALUE, byte DIGITS, String SUFFIX);
 void menu_values(int DESC, float VALUE, byte DIGITS, String SUFFIX);
@@ -61,6 +64,8 @@ void print_string(int string_id);
 // from main.cpp
 bool timer_check(unsigned long *timer, unsigned long delay);
 
+// from canbus.cpp
+bool can_next();
 
 
 

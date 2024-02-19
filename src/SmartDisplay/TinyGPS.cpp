@@ -33,80 +33,83 @@ void tinyGPS_init() {
 
 
 void tinyGPS_loop() {
-  unsigned long start = millis();
-  do
-  {
-    while (GPS_SERIAL.available())
-      gps.encode(GPS_SERIAL.read());
-      //DEBUG_PRINT(GPS_SERIAL.read());
-      //DEBUG_PRINT(F("."));
-  } while (millis() - start < 500);
+    unsigned long start = millis();
+    do {
+        while (GPS_SERIAL.available())
+            gps.encode(GPS_SERIAL.read());
+            //DEBUG_PRINT(GPS_SERIAL.read());
+            //DEBUG_PRINT(F("."));
+    } while (millis() - start < 500);
 
-  //DEBUG_PRINT(F("GPS chars processed: "));
-  //DEBUG_PRINTLN(gps.charsProcessed());
-
-  if ( gps.charsProcessed() >= 1000 ) {
-    gps_available = true;
-  }
-  else {
-    gps_available = false;
-  }
-
-  //DEBUG_PRINT(F("Satelites: "));
-  //DEBUG_PRINTLN(gps.satellites.value());
-  
-  if ( gps.speed.isValid() ) {
-    speed_available = true;
-    speed = gps.speed.kmph();
-    if ( speed >= 10 ) {
-      speed += GSP_SPEED_OFFSER;
-    }
-  }
-  else {
-    speed = 0;
-    speed_available = false;
-  }
-
-  if ( gps.satellites.isValid() ) {
-    gps_satellites = gps.satellites.value();
-  }
-
-  if ( gps.location.isValid() ) {
-    gps_latitude = gps.location.lat();
-    gps_longitude = gps.location.lng();
-    gps_altitude = gps.altitude.meters();
-
-    // set the trip calculator
-    calc_trip();
-  }
-
-
-  if (gps.time.isValid())
-  {
-    year = gps.date.year();
-    month = gps.date.month();
-    day = gps.date.day();
-
-    hour = gps.time.hour() + TIME_ZONE;
-    if ( hour >= 24 ) {
-      hour = hour - 24;
-      day = day + 1;
-    }
-    minute = gps.time.minute();
-    second = gps.time.second();
+    //DEBUG_PRINT(F("GPS chars processed: "));
+    //DEBUG_PRINTLN(gps.charsProcessed());
     
-    /*DEBUG_PRINT(F("GPS Time: "));
-    DEBUG_PRINT(String(hour, DEC));
-    DEBUG_PRINT(F(":"));
-    DEBUG_PRINT(String(minute, DEC));
-    DEBUG_PRINT(F(":"));
-    DEBUG_PRINTLN(String(second, DEC));*/
+    //DEBUG_PRINTLN("GPS chars processed: " + String(gps.charsProcessed()));
 
-    if ( summertime_EU(year, month, day, hour, TIME_ZONE) ) {
-      hour++;
+    if ( gps.charsProcessed() >= 1000 ) {
+        gps_available = true;
+    }
+    else {
+        gps_available = false;
     }
 
-  }
+    //DEBUG_PRINT(F("Satelites: "));
+    //DEBUG_PRINTLN("Satelites: " + gps.satellites.value());
+    
+    if ( gps.speed.isValid() ) {
+        speed_available = true;
+        speed = gps.speed.kmph();
+        if ( speed >= 10 ) {
+            speed += GSP_SPEED_OFFSET;
+        }
+    }
+    else {
+        speed = 0;
+        speed_available = false;
+    }
+
+    if ( gps.satellites.isValid() ) {
+        gps_satellites = gps.satellites.value();
+    }
+
+    if ( gps.location.isValid() ) {
+        gps_latitude = gps.location.lat();
+        gps_longitude = gps.location.lng();
+        gps_altitude = gps.altitude.meters();
+
+        // set the trip calculator
+        calc_trip();
+    }
+
+
+    if (gps.time.isValid())
+    {
+        year = gps.date.year();
+        month = gps.date.month();
+        day = gps.date.day();
+
+        hour = gps.time.hour() + TIME_ZONE;
+        if ( hour >= 24 ) {
+        hour = hour - 24;
+        day = day + 1;
+        }
+        minute = gps.time.minute();
+        second = gps.time.second();
+        
+        /*DEBUG_PRINT(F("GPS Time: "));
+        DEBUG_PRINT(String(hour, DEC));
+        DEBUG_PRINT(F(":"));
+        DEBUG_PRINT(String(minute, DEC));
+        DEBUG_PRINT(F(":"));
+        DEBUG_PRINTLN(String(second, DEC));*/
+        
+        //DEBUG_PRINTLN("GPS Time: " + String(hour, DEC) + ":" + String(minute, DEC) + ":" + String(second, DEC));
+
+        if ( summertime_EU(year, month, day, hour, TIME_ZONE) ) {
+            hour++;
+        }
+
+      }
 }
 
 

@@ -69,7 +69,9 @@ void engine_state() {
     reset_display_pwrsave();
     if ( !engine_running ) {
       #ifdef DISPLAY_AUTO_SWITCH
+      #ifdef MENU_speed
       MainMenuPos = MENU_speed;
+      #endif
       #endif
       engine_running = true;
     }

@@ -52,7 +52,7 @@ void key_interrupt() {
       key_pressed = millis();
     }
   }
-  display_loop();
+  //display_loop();
 }
 
 
@@ -71,9 +71,11 @@ void key_loop() {
             key_pressed = millis() + 10000;
             longpress_active = false;
 
+            #ifdef MENU_trip
             if ( MainMenuPos == MENU_trip ) {
                 reset_trip();
             }
+            #endif
         }
     }
 }

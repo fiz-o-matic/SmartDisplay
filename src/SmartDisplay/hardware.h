@@ -30,13 +30,12 @@
 //#define IN1_MULTIPLICATOR 0.015234
 
 
-
 /*
- * BETA Version with DOGS102 LCD
+ * GAMMA Version with DOGS102 LCD and CAN Bus
  */
-#ifdef HW_BETA
+#ifdef HW_GAMMA
 
-#define VERSION_HW "BETA w/ DOGS102"
+#define VERSION_HW "GAMMA w/ DOGS102"
 
 #define KEY PIN_A5
 
@@ -72,13 +71,69 @@
 
 //Menu and Feature defination
 #define MENU_clock 1
+//#define MENU_speed 2
+//#define MENU_bord_voltage_int 3
+//#define MENU_trip 4
+//#define MENU_altitude 5
+#define MENU_CAN 2
+#define MENU_CAN_NEXT 3
+#define MENU_gps 8
+#define MENU_Info 4
+
+#endif
+
+
+
+/*
+ * BETA Version with DOGS102 LCD
+ */
+#ifdef HW_BETA
+
+#define VERSION_HW "BETA w/ DOGS102"
+
+#define KEY PIN_A5
+
+// analog Input
+#define IN1 A4
+// Volatege multiplication
+//#define A3_MULTIPLICATOR 0.02273438
+#define VOLTAGE_RANGE_MV 18750
+
+#define GPS_ENABLED
+#define GPS_BAUD 9600
+#define GPS_SERIAL Serial1
+#define GSP_RESET_PIN 11
+
+// OneWire Bus
+#define ONEWIRE
+//#define ONE_WIRE_BUS PIN_A6
+
+
+/*
+#define CANBUS
+#define CAN_IRQ 10
+#define CAN_CS 7
+*/
+
+#define DOGS102_T25
+#define U8G2_DISPLAY
+//#define ENABLE_DISPLAY
+
+
+#define DISPLAY_CS 24
+#define DISPLAY_RST 23
+#define DISPLAY_DC 22
+
+//Menu and Feature defination
+#define MENU_clock 1
 #define MENU_speed 2
 #define MENU_bord_voltage_int 3
 #define MENU_trip 4
 #define MENU_altitude 5
-#define MENU_CAN 6
-#define MENU_gps 7
-#define MENU_Info 8
+//#define MENU_CAN 2
+//#define MENU_CAN_NEXT 3
+#define MENU_gps 6
+#define MENU_Info 7
 
 #endif
 
@@ -193,36 +248,36 @@
 
 
 //Menu and Feature defination
-#define CAN_time_SLAVE
+//#define CAN_time_SLAVE
 #define MENU_clock 1
 #define MENU_speed 2
 
-#define CAN_fuel_water_SLAVE
+//#define CAN_fuel_water_SLAVE
 #define MENU_temp 3
 #define MENU_fuel 4
 
-#define CAN_oil_SLAVE
-#define MENU_oil_temp 5
-#define MENU_oil_pressure 6
-#define CAN_voltage_SLAVE
-#define MENU_batt1_voltage 7
-#define MENU_batt2_voltage 8
-#define MENU_bord_voltage 9
-#define MENU_bord_voltage_int 10
-#define CAN_rpm_SLAVE
-#define MENU_rpm 11
-#define CAN_gps_SLAVE
-#define MENU_gps 12
-#define MENU_altitude 13
-#define CAN_klima_SLAVE
-#define MENU_temp_hum_out 14
-#define MENU_temp_hum_in 15
-#define CAN_trip_SLAVE
-#define MENU_trip_today 16
-#define MENU_trip_long 17
-#define MENU_trip_all 18
+//#define CAN_oil_SLAVE
+//#define MENU_oil_temp 5
+//#define MENU_oil_pressure 6
+//#define CAN_voltage_SLAVE
+//#define MENU_batt1_voltage 7
+//#define MENU_batt2_voltage 8
+//#define MENU_bord_voltage 9
+//#define MENU_bord_voltage_int 10
+//#define CAN_rpm_SLAVE
+//#define MENU_rpm 11
+//#define CAN_gps_SLAVE
+//#define MENU_gps 12
+//#define MENU_altitude 13
+//#define CAN_klima_SLAVE
+//#define MENU_temp_hum_out 14
+//#define MENU_temp_hum_in 15
+//#define CAN_trip_SLAVE
+//#define MENU_trip_today 16
+//#define MENU_trip_long 17
+//#define MENU_trip_all 18
 
-#define CAN_display_MASTER
+//#define CAN_display_MASTER
 
 #endif //SW_CAN
 
@@ -345,10 +400,20 @@
 
 
 
-#ifdef DEBUG
+/*#ifdef DEBUG
  #define DEBUG_PRINT(x)  Serial.print (x)
  #define DEBUG_PRINTLN(x)  Serial.println (x)
 #else
  #define DEBUG_PRINT(x)
  #define DEBUG_PRINTLN(x)
+#endif*/
+
+#if defined(DEBUG)
+    #define DEBUG_PRINT(...)  { Serial.print("[" + String(millis()) + "]"); Serial.println(__VA_ARGS__); }
+    //#define DEBUG_PRINT(...)  BLYNK_LOG1(__VA_ARGS__)
+    #define DEBUG_PRINTLN(...) Serial.println(__VA_ARGS__)
+#else
+    #define DEBUG_PRINT(...)
+    #define DEBUG_PRINTLN(...)
 #endif
+

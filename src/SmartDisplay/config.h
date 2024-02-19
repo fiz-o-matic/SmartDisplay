@@ -17,6 +17,7 @@
 //#define DEBUG // this disables GPS on the Serial Port
 //#define HW_ALPHA_OLED
 //#define HW_ALPHA_LCD
+//#define HW_BETA
 
 
 
@@ -40,7 +41,7 @@
 #define TRIP_CALC_TIMER 10000
 
 // GPS Speed Offset
-#define GSP_SPEED_OFFSER 5
+#define GSP_SPEED_OFFSET 5
 
 
 // sitch automaticly to spped menu if engine is running
