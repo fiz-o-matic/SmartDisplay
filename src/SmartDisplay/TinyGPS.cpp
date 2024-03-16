@@ -21,14 +21,16 @@ TinyGPSPlus gps;
 
 void tinyGPS_init() {
 
-  #ifdef GSP_RESET_PIN
-  pinMode(GSP_RESET_PIN, OUTPUT);
-  digitalWrite(GSP_RESET_PIN, HIGH); 
-  #endif
+    #ifdef GSP_RESET_PIN
+    pinMode(GSP_RESET_PIN, OUTPUT);
+    digitalWrite(GSP_RESET_PIN, HIGH); 
+    #endif
 
-  GPS_SERIAL.begin(GPS_BAUD);
+    GPS_SERIAL.begin(GPS_BAUD);
 
-  //setupGPSpower();
+    tinyGPS_watchdog_reset();
+
+    //setupGPSpower();
 }
 
 
@@ -44,14 +46,44 @@ void tinyGPS_loop() {
     //DEBUG_PRINT(F("GPS chars processed: "));
     //DEBUG_PRINTLN(gps.charsProcessed());
     
-    //DEBUG_PRINTLN("GPS chars processed: " + String(gps.charsProcessed()));
 
-    if ( gps.charsProcessed() >= 1000 ) {
+    if ( gps.charsProcessed() - gps_processed >= 25 ) {
         gps_available = true;
+        gps_process_timeout = 0;
+        gps_processed = gps.charsProcessed();
+        //gps_watchdog_timer += GPS_WATCHDOG_TIMOUT;
+        tinyGPS_watchdog_reset();
     }
     else {
-        gps_available = false;
+        //DEBUG_PRINTLN("GPS chars processed: " + String(gps.charsProcessed()));
+        //DEBUG_PRINTLN("GPS process timeout: " + String(gps_process_timeout));
+        gps_process_timeout++;
+        //gps_watchdog_timeout++;
+        if ( gps_process_timeout > 10 ) {
+            gps_available = false;
+        }
+
+        // resetting the GPS Module
+        /*if ( gps_watchdog_timeout > 20 ) {
+            tinyGPS_reset();
+            gps_watchdog_timeout = 0;
+            gps_processed = gps.charsProcessed();
+        }*/
+        /*if ( timer_check(&gps_watchdog_timer, GPS_WATCHDOG_TIMOUT ) ) {
+            tinyGPS_reset();
+            gps_watchdog_timeout = 0;
+            gps_processed = gps.charsProcessed();
+        }*/
+
+        // check an overrun
+        if ( gps_processed > gps.charsProcessed() ) {
+            gps_processed = gps.charsProcessed();
+            gps_watchdog_timer += GPS_WATCHDOG_TIMOUT;
+        }
     }
+
+    tinyGPS_watchdog();
+    //gps_processed = gps.charsProcessed();
 
     //DEBUG_PRINT(F("Satelites: "));
     //DEBUG_PRINTLN("Satelites: " + gps.satellites.value());
@@ -109,12 +141,52 @@ void tinyGPS_loop() {
             hour++;
         }
 
-      }
+    }
 }
 
 
 
+void tinyGPS_reset() {
+    #ifdef GSP_RESET_PIN
+    DEBUG_PRINTLN("RESET GPS MODULE");
 
+    digitalWrite(GSP_RESET_PIN, LOW); 
+    delay(1000);
+    digitalWrite(GSP_RESET_PIN, HIGH); 
+    //DEBUG_PRINTLN("RESET DONE");
+
+    #endif
+}
+
+void tinyGPS_watchdog() {
+    if ( gps_available == false ) {
+        //unsigned long watchdog_timout = ( ( gps_watchdog_timer + GPS_WATCHDOG_TIMOUT - millis() ) / 1000 );
+        //DEBUG_PRINTLN("GPS RESET in : " + String( ( gps_watchdog_timer + GPS_WATCHDOG_TIMOUT - millis() ) / 1000 )  + "s");
+        //DEBUG_PRINTLN("GPS RESET in : " + String( watchdog_timout )  + "s");
+        DEBUG_PRINTLN("GPS RESET in : " + String( tinyGPS_watchdog_reset_in() )  + "s");
+        if ( timer_check(&gps_watchdog_timer, GPS_WATCHDOG_TIMOUT ) ) {
+            tinyGPS_reset();
+            tinyGPS_watchdog_reset();
+            //gps_watchdog_timeout = 0;
+            //gps_processed = gps.charsProcessed();
+            //gps_watchdog_timer += GPS_WATCHDOG_TIMOUT;
+        }
+    }
+    else {
+        tinyGPS_watchdog_reset();
+    }
+}
+
+void tinyGPS_watchdog_reset() {
+    gps_watchdog_timer = millis();
+    //DEBUG_PRINTLN("gps_watchdog_timer : " + String(gps_watchdog_timer));
+    //DEBUG_PRINTLN("millis() : " + String(millis()));
+
+}
+
+uint16_t tinyGPS_watchdog_reset_in() {
+    return ( ( gps_watchdog_timer + GPS_WATCHDOG_TIMOUT - millis() ) / 1000 );
+}
 
 
 

@@ -29,6 +29,13 @@ bool timer_check(unsigned long *timer, unsigned long delay);
 // from trip.cpp
 void reset_trip();
 
+// from local
+void key_short();
+void key_long();
+
+// from system_comnfig.cpp
+void read_eeprom_config();
+void save_eeprom_config();
 
 volatile unsigned long last_key=0;
 unsigned long key_timer = 0;

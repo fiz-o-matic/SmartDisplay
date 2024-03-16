@@ -20,6 +20,7 @@
 
 #include <avr/wdt.h>
 #include <time.h>
+//#include "system_config.h"
 
 
 
@@ -67,6 +68,10 @@ void calc_trip();
 void read_eeprom_trip1();
 void write_eeprom_trip1();
 void clear_eeprom_trip1();
+
+// from system_comnfig.cpp
+void read_eeprom_config();
+void save_eeprom_config();
 
 
 /*

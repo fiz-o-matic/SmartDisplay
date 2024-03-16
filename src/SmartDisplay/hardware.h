@@ -22,6 +22,7 @@
 #define GPS_TXPin A1
 
 
+#define GPS_WATCHDOG_TIMOUT_S 60
 
 
 
@@ -71,14 +72,14 @@
 
 //Menu and Feature defination
 #define MENU_clock 1
-//#define MENU_speed 2
-//#define MENU_bord_voltage_int 3
-//#define MENU_trip 4
-//#define MENU_altitude 5
-#define MENU_CAN 2
-#define MENU_CAN_NEXT 3
+#define MENU_speed 2
+#define MENU_bord_voltage_int 3
+#define MENU_trip 4
+#define MENU_altitude 5
+#define MENU_CAN 6
+#define MENU_CAN_NEXT 7
 #define MENU_gps 8
-#define MENU_Info 4
+#define MENU_Info 9
 
 #endif
 

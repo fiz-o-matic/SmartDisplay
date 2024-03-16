@@ -12,8 +12,9 @@
 extern uint16_t display_req_addr;
 extern bool display_data_valid;
 extern byte display_msg_type;
-//extern int available_values[16];
-extern boolean available_values2[2048];
+
+extern boolean available_values[2048];
+extern uint16_t available_values2[];
 extern char display_desc[18];
 extern byte display_data_type;
 extern char display_value1[9];

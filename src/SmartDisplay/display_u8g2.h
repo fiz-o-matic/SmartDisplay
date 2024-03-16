@@ -54,9 +54,13 @@ void menu_logo();
 void menu_clock();
 void menu_speed(int DESC, float VALUE, byte DIGITS, String SUFFIX);
 void menu_values(int DESC, float VALUE, byte DIGITS, String SUFFIX);
+void menu_2values(int DESC, long VALUE1, byte DIGITS1, String SUFFIX1, long VALUE2, byte DIGITS2, String SUFFIX2);
+void menu_values(char DESC[18], char VALUE[9], char SUFFIX[5]);
+void menu_2values(char DESC[18], char VALUE1[9], char SUFFIX1[5], char VALUE2[9], char SUFFIX2[5]);
 void menu_gps_1();
 void menu_can();
 void menu_info();
+void menu_config(int DESC, byte VALUE);
 
 void print_string(int string_id);
 
@@ -67,6 +71,9 @@ bool timer_check(unsigned long *timer, unsigned long delay);
 // from canbus.cpp
 bool can_next();
 
+
+// from TinyGPS
+uint16_t tinyGPS_watchdog_reset_in();
 
 
 unsigned long display_timer = 0;
@@ -100,9 +107,9 @@ int OldPos = 0;
 #define STR_RPM_S "RPM"
 
 #define STR_NOGPS 10
-#define STR_NOGPS_S "kein GPS verf\xfcgbar"
+#define STR_NOGPS_S "keine GPS Daten..."
 #define STR_ALTITUTE 11
-#define STR_ALTITUTE_S "H\xf6he"
+#define STR_ALTITUTE_S "Höhe"
 #define STR_LAT 12
 #define STR_LAT_S "Latitude"
 #define STR_LONG 13
@@ -123,7 +130,8 @@ int OldPos = 0;
 #define STR_TRIP_S "Trip"
 #define STR_BORD_VOLT_INT 21
 #define STR_BORD_VOLT_INT_S "Bordspannung (KI)"
-
+#define STR_CONTRAST 22
+#define STR_CONTRAST_S "Kontrast"
 
 #define STR_KMH 101
 #define STR_KMH_S "k/mh"

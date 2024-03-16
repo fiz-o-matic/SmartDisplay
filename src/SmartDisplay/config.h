@@ -57,3 +57,6 @@
 
 // save trip only if distance is > x km
 #define EEPROM_SAVE_TRIP1 1
+
+
+#define EEPROM_VAL_CONTRAST EEPROM_VAL_TRIP1 + 1

@@ -8,7 +8,8 @@
 #include "canbus.h"
 #include "canvalues.h"
 
-#define DISPLAY_ADDR 0xF0
+//#define DISPLAY_ADDR 0xF0
+#define DISPLAY_ADDR 0x6F0
 
 CANMessage frame;
 bool ok = false;
@@ -22,8 +23,8 @@ uint16_t display_req_addr = 0x00;
 bool display_data_valid = false;
 byte display_msg_type = 0;
 byte display_frame_type = 0;
-//int available_values[16];
-boolean available_values2[2048];
+boolean available_values[2048];
+uint16_t available_values2[256];
 char display_desc[18];
 byte display_data_type = 0;
 char display_value1[9];
@@ -114,7 +115,7 @@ void can_init () {
         
         const ACAN2515Mask rxm0 = standard2515Mask (0x7F0, 0, 0) ;
         const ACAN2515AcceptanceFilter filter [] = {
-                                standard2515Filter (0xF0, 0, 0), receive0}; // RXF0 };
+                                standard2515Filter (DISPLAY_ADDR, 0, 0), receive0}; // RXF0 };
         
 
         //const uint16_t errorCode = can.begin (settings, [] { can.isr () ; }) ;
@@ -197,6 +198,7 @@ static void read(CANMessage frame) {
                 }
             }
             //DEBUG_PRINT("DISPLAY DESC : " + String(display_desc));
+            DEBUG_PRINT("Receive description : " + String(display_desc));
             break;
         case DISPLAY_ADDR + 0x04:
             // receive the value types as a string
@@ -235,10 +237,26 @@ static void read(CANMessage frame) {
             //DEBUG_PRINT("DISPLAY Value 2 : " + String(display_value2) + " " + String(display_value2_suffix));
             break;
         case DISPLAY_ADDR + 0x0f:
-            if ( !available_values2[frame.data[0]] ) {
-                DEBUG_PRINT("register available field: 0x" + String(frame.data[0], HEX));
+            /*if ( !available_values[frame.data16[0]] ) {
+                DEBUG_PRINT("register available field: 0x" + String(frame.data16[0], HEX));
             }
-            available_values2[frame.data[0]] = true;
+            available_values[frame.data16[0]] = true;
+            */
+
+            //DEBUG_PRINT("ADDR: 0x" + String(frame.data16[0], HEX));
+            byte high = frame.data16[0] >> 4;
+            byte low = frame.data16[0] - (high << 4);
+            //DEBUG_PRINT("HIGH: 0x" + String(high, HEX));
+            //DEBUG_PRINT("LOW : 0x" + String(low, HEX));
+            //DEBUG_PRINT("READ: " + String(bitRead(available_values2[high], low )));
+            if ( !bitRead(available_values2[high], low) ) {
+                //DEBUG_PRINT("HIGH: 0x" + String(high, HEX));
+                //DEBUG_PRINT("LOW : 0x" + String(low, HEX));
+                //DEBUG_PRINT("READ: " + String(bitRead(available_values2[high], low )));
+                bitSet(available_values2[high], low);
+                DEBUG_PRINT("register available field: 0x" + String(frame.data16[0], HEX));
+            }
+            
             break;
             /*for ( ii = 0; ii < sizeof(available_values); ii++ ) {
                 if ( available_values[ii] == 0 ) {
@@ -283,12 +301,35 @@ void request_display_description(uint16_t value_addr) {
 bool can_next() {
     DEBUG_PRINT("actual addr : 0x" + String(display_req_addr, HEX));
 
-    for ( ii = display_req_addr + 1; ii < sizeof(available_values2); ii++ ) {
-        if ( available_values2[ii] ) {
+    /*for ( ii = display_req_addr + 1; ii < sizeof(available_values); ii++ ) {
+        if ( available_values[ii] ) {
             DEBUG_PRINT("NEXT value...");
             request_display_description(ii);
 
             return true;
+        }
+    }*/
+
+    byte high = display_req_addr >> 4;
+    byte low = display_req_addr - (high << 4);
+    for ( ii = low + 1; ii < 16; ii++) {
+        if ( bitRead(available_values2[high], ii)) {
+            DEBUG_PRINT("NEXT value...");
+            request_display_description((high << 4) + ii);
+
+            return true;
+        }
+    }
+    //DEBUG_PRINT(String(sizeof(available_values2)/ sizeof(uint16_t), DEC));
+    for ( byte i = high + 1; i < sizeof(available_values2) / sizeof(uint16_t) -1; i++) {
+        DEBUG_PRINT(String(i, DEC));
+        for ( ii = 0; ii < 16; ii++) {
+            if ( bitRead(available_values2[i], ii)) {
+                DEBUG_PRINT("NEXT value...");
+                request_display_description((i << 4) + ii);
+
+                return true;
+            }
         }
     }
     DEBUG_PRINT("NO MORE values...");

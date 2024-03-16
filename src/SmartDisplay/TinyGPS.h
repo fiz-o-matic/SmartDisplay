@@ -26,11 +26,22 @@ float get_distance(float latitude1, float longitude1, float latitude2, float lon
 boolean summertime_EU(int year, byte month, byte day, byte hour, byte tzHours);
 void sendUBX(uint8_t *MSG, uint8_t len);
 void setupGPSpower();
+void tinyGPS_reset();
+void tinyGPS_watchdog();
+void tinyGPS_watchdog_reset();
+uint16_t tinyGPS_watchdog_reset_in();
 
 static const int RXPin = GPS_RXPin, TXPin = GPS_TXPin;
 
 
 int gps_satellites = 0;
+long gps_processed = 0;
+byte gps_process_timeout = 0;
+//uint16_t gps_watchdog_timeout = 0;
+
+static unsigned long GPS_WATCHDOG_TIMOUT = GPS_WATCHDOG_TIMOUT_S * 1000UL;
+unsigned long gps_watchdog_timer = 0;
+
 
 /*#ifdef DEBUG
  // The serial connection to the GPS device

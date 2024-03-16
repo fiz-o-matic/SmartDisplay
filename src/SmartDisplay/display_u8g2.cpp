@@ -28,6 +28,7 @@ int i_tmp = 0;
 void display_init(void) {
   u8g2.begin();
   u8g2.enableUTF8Print();
+  //u8g2.setContrast(20);
   clear_screen();
   menu_logo();
 }
@@ -55,6 +56,8 @@ void display_loop() {
         digitalWrite(DISPLAY_CS, HIGH);
     }
   #endif
+
+  u8g2.setContrast(contrast * 10);
 }
 
 
@@ -83,161 +86,166 @@ void clear_screen() {
  * Display MENUs
  */
 void display() {
-  // display_menu_set is needed to skip menu entries
-  display_menu_set = false;
+    // display_menu_set is needed to skip menu entries
+    display_menu_set = false;
 
-  while(!display_menu_set) {
+    while(!display_menu_set) {
 
-    if ( OldPos != MainMenuPos ) {
-      clear_screen();
-      OldPos = MainMenuPos;
+        if ( OldPos != MainMenuPos ) {
+        clear_screen();
+        OldPos = MainMenuPos;
+        }
+        //DEBUG_PRINT(String(MainMenuPos));
+
+        switch (MainMenuPos) {
+            case MENU_clock:
+                menu_clock();
+                //menu_logo();
+                display_menu_set = true;
+                break;
+            #ifdef MENU_speed
+            case MENU_speed:
+                menu_speed(STR_SPEED, speed, DEC, "km/h");
+                display_menu_set = true;
+                break;
+            #endif
+            #ifdef MENU_temp
+            case MENU_temp:
+                if ( water_temp_active ) {
+                menu_values(STR_WATER_TEMP, water_temp, 1, "\xb0 C");
+                display_menu_set = true;
+                } else MainMenuPos++;
+                break;
+            #endif
+            #ifdef MENU_fuel
+            case MENU_fuel:
+                if ( fuel_l_active ) {
+                menu_values(STR_FUEL, fuel_l, 0, "l");
+                display_menu_set = true;
+                } else MainMenuPos++; break;
+            #endif
+            #ifdef MENU_oil_temp
+            case MENU_oil_temp:
+                if ( oil_temp_active ) {
+                menu_values(STR_OIL_TEMP, oil_temp, 0, "\xb0 C");
+                display_menu_set = true;
+                } else MainMenuPos++;
+                break;
+            #endif
+            #ifdef MENU_oil_pressure
+            case MENU_oil_pressure:
+                if ( oil_pressure_active ) {
+                menu_values(STR_OIL_PRESSURE, oil_pressure, 1, "bar");
+                display_menu_set = true;
+                } else MainMenuPos++;
+                break;
+            #endif
+            #ifdef MENU_batt1_voltage
+            case MENU_batt1_voltage:
+                if ( batt1_voltage_active ) {
+                menu_values(STR_BATT1, batt1_voltage, 1, "V");
+                display_menu_set = true;
+                } else MainMenuPos++;
+                break;
+            #endif
+            #ifdef MENU_batt2_voltage
+            case MENU_batt2_voltage:
+                if ( batt2_voltage_active ) {
+                menu_values(STR_BATT2, batt2_voltage, 1, "V");
+                display_menu_set = true;
+                } else MainMenuPos++;
+                break;
+            #endif
+            #ifdef MENU_bord_voltage
+            case MENU_bord_voltage:
+                if ( bord_voltage_active ) {
+                menu_values(STR_BORD_VOLT, bord_voltage, 1, "V");
+                display_menu_set = true;
+                } else MainMenuPos++;
+                break;
+            #endif
+            #ifdef MENU_bord_voltage_int
+            case MENU_bord_voltage_int:
+                menu_values(STR_BORD_VOLT_INT, bord_voltage_int + 0.05, 1, "V");
+                display_menu_set = true;
+                break;
+            #endif
+            #ifdef MENU_gps
+            case MENU_gps:
+                menu_gps_1();
+                display_menu_set = true;
+                break;
+            #endif
+            #ifdef MENU_altitude
+            case MENU_altitude:
+                menu_values(STR_ALTITUTE, gps_altitude, DEC, "m");
+                display_menu_set = true;
+                break;
+            #endif
+            #ifdef MENU_rpm
+            case MENU_rpm:
+                if ( rpm_active ) {
+                menu_values(STR_RPM, rpm, DEC, "U/min");
+                display_menu_set = true;
+                } else MainMenuPos++;
+                break;
+            #endif
+            #ifdef MENU_trip
+            case MENU_trip:
+                menu_values(STR_TRIP, trip_distance, 1, "km");
+                display_menu_set = true;
+                break;
+            #endif
+
+            #ifdef MENU_CAN
+            case MENU_CAN:
+                if ( display_req_addr != 0x00 ) {
+                menu_can();
+                display_menu_set = true;
+                }
+                else {
+                MainMenuPos++;
+                }
+                break;
+                
+                break;
+            #endif
+
+            #ifdef MENU_CAN_NEXT
+            case MENU_CAN_NEXT:
+                if ( can_next() ) {
+                MainMenuPos = MENU_CAN; 
+                //delay(500);
+                }
+                else {
+                MainMenuPos++;
+                }
+                break;
+            #endif
+
+            #ifdef MENU_Info
+            case MENU_Info:
+                menu_info();
+                display_menu_set = true;
+                break;
+
+            case MENU_Info + 1:
+                menu_config(STR_CONTRAST, contrast);
+                display_menu_set = true;
+                break;
+            #endif
+
+
+            default: 
+                menu_clock();
+                MainMenuPos = 1;
+                display_menu_set = true;
+                break;
+            
+        }
+
     }
-    //DEBUG_PRINT(String(MainMenuPos));
-
-    switch (MainMenuPos) {
-      case MENU_clock:
-        menu_clock();
-		//menu_logo();
-        display_menu_set = true;
-        break;
-      #ifdef MENU_speed
-      case MENU_speed:
-        menu_speed(STR_SPEED, speed, DEC, "km/h");
-        display_menu_set = true;
-        break;
-      #endif
-      #ifdef MENU_temp
-      case MENU_temp:
-        if ( water_temp_active ) {
-          menu_values(STR_WATER_TEMP, water_temp, 1, "\xb0 C");
-          display_menu_set = true;
-        } else MainMenuPos++;
-        break;
-      #endif
-      #ifdef MENU_fuel
-      case MENU_fuel:
-        if ( fuel_l_active ) {
-          menu_values(STR_FUEL, fuel_l, 0, "l");
-          display_menu_set = true;
-        } else MainMenuPos++; break;
-      #endif
-      #ifdef MENU_oil_temp
-      case MENU_oil_temp:
-        if ( oil_temp_active ) {
-          menu_values(STR_OIL_TEMP, oil_temp, 0, "\xb0 C");
-          display_menu_set = true;
-        } else MainMenuPos++;
-        break;
-      #endif
-      #ifdef MENU_oil_pressure
-      case MENU_oil_pressure:
-        if ( oil_pressure_active ) {
-          menu_values(STR_OIL_PRESSURE, oil_pressure, 1, "bar");
-          display_menu_set = true;
-        } else MainMenuPos++;
-        break;
-      #endif
-      #ifdef MENU_batt1_voltage
-      case MENU_batt1_voltage:
-        if ( batt1_voltage_active ) {
-          menu_values(STR_BATT1, batt1_voltage, 1, "V");
-          display_menu_set = true;
-        } else MainMenuPos++;
-        break;
-      #endif
-      #ifdef MENU_batt2_voltage
-      case MENU_batt2_voltage:
-        if ( batt2_voltage_active ) {
-          menu_values(STR_BATT2, batt2_voltage, 1, "V");
-          display_menu_set = true;
-        } else MainMenuPos++;
-        break;
-      #endif
-      #ifdef MENU_bord_voltage
-      case MENU_bord_voltage:
-        if ( bord_voltage_active ) {
-          menu_values(STR_BORD_VOLT, bord_voltage, 1, "V");
-          display_menu_set = true;
-        } else MainMenuPos++;
-        break;
-      #endif
-      #ifdef MENU_bord_voltage_int
-      case MENU_bord_voltage_int:
-        menu_values(STR_BORD_VOLT_INT, bord_voltage_int + 0.05, 1, "V");
-        display_menu_set = true;
-        break;
-      #endif
-      #ifdef MENU_gps
-      case MENU_gps:
-        menu_gps_1();
-        display_menu_set = true;
-        break;
-      #endif
-      #ifdef MENU_altitude
-      case MENU_altitude:
-        menu_values(STR_ALTITUTE, gps_altitude, DEC, "m");
-        display_menu_set = true;
-        break;
-      #endif
-      #ifdef MENU_rpm
-      case MENU_rpm:
-        if ( rpm_active ) {
-          menu_values(STR_RPM, rpm, DEC, "U/min");
-          display_menu_set = true;
-        } else MainMenuPos++;
-        break;
-      #endif
-      #ifdef MENU_trip
-      case MENU_trip:
-        menu_values(STR_TRIP, trip_distance, 1, "km");
-        display_menu_set = true;
-        break;
-      #endif
-
-      #ifdef MENU_CAN
-      case MENU_CAN:
-        if ( display_req_addr != 0x00 ) {
-          menu_can();
-          display_menu_set = true;
-        }
-        else {
-          MainMenuPos++;
-        }
-        break;
-        
-        break;
-      #endif
-
-      #ifdef MENU_CAN_NEXT
-      case MENU_CAN_NEXT:
-        if ( can_next() ) {
-          MainMenuPos = MENU_CAN; 
-          //delay(500);
-        }
-        else {
-          MainMenuPos++;
-        }
-        break;
-      #endif
-
-      #ifdef MENU_Info
-      case MENU_Info:
-        menu_info();
-        display_menu_set = true;
-        break;
-      #endif
-
-
-      default: {
-        menu_clock();
-        MainMenuPos = 1;
-        display_menu_set = true;
-        break;
-      }
-    }
-
-  }
-  //} while ( u8g2.nextPage() );
+    //} while ( u8g2.nextPage() );
 
 }
 
@@ -546,6 +554,8 @@ void menu_gps_1() {
     }
     else {
       print_string(STR_NOGPS);
+      u8g2.setCursor(LAYOUT_GPS_VALUE2);
+      u8g2.print("reset in : " + String(tinyGPS_watchdog_reset_in()) + "s");
     }
 
   } while ( u8g2.nextPage() );
@@ -575,6 +585,28 @@ void menu_info() {
     u8g2.print(F("HW: "));
     u8g2.print(F(VERSION_HW));
   
+  } while ( u8g2.nextPage() );
+  interrupts();
+}
+
+void menu_config(int DESC, byte VALUE) {
+  noInterrupts();
+
+  u8g2.firstPage();
+  do {
+    u8g2.clearBuffer();
+
+    u8g2.setFont(small_font);
+    u8g2.setFontPosTop();
+
+    u8g2.setCursor(LAYOUT_VALUES_DESC);
+    print_string(DESC);
+
+    u8g2.setFont(big_font);
+    u8g2.setCursor(LAYOUT_VALUES_VALUE);
+    u8g2.print(VALUE);
+    u8g2.setFont(medium_font);
+
   } while ( u8g2.nextPage() );
   interrupts();
 }
@@ -618,6 +650,7 @@ void print_string(int string_id) {
     case STR_HUMIDITY: DISPLAY_PRINT(F(STR_HUMIDITY_S)); break;
     case STR_COORDINATES: DISPLAY_PRINT(F(STR_COORDINATES_S)); break;
     case STR_TRIP: DISPLAY_PRINT(F(STR_TRIP_S)); break;
+    case STR_CONTRAST: DISPLAY_PRINT(F(STR_CONTRAST_S)); break;
 
 
     case STR_KMH: DISPLAY_PRINT(F(STR_KMH_S)); break;

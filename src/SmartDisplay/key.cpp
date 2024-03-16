@@ -46,7 +46,8 @@ void key_interrupt() {
         reset_display_pwrsave();
       }
       else {
-        MainMenuPos++;
+        //MainMenuPos++;
+        key_short();
         reset_display_pwrsave();
       }
       key_pressed = millis();
@@ -71,11 +72,54 @@ void key_loop() {
             key_pressed = millis() + 10000;
             longpress_active = false;
 
-            #ifdef MENU_trip
+            key_long();
+            /*#ifdef MENU_trip
             if ( MainMenuPos == MENU_trip ) {
                 reset_trip();
             }
-            #endif
+            #endif*/
         }
+    }
+}
+
+
+void key_short() {
+    switch (MainMenuPos) {
+        #ifdef MENU_Info
+        case MENU_Info:
+            MainMenuPos = MENU_clock;
+            break;
+        case MENU_Info + 1:
+            DEBUG_PRINTLN("Contrast : " + String(contrast));
+            contrast++;
+            if ( contrast > 10 ) contrast = 1;
+            break;
+        #endif
+        default: 
+            MainMenuPos++;
+            break;
+    }
+}
+
+void key_long() {
+    switch (MainMenuPos) {
+        #ifdef MENU_trip
+        case MENU_trip:
+            reset_trip();
+            break;
+        #endif
+        #ifdef MENU_Info
+        case MENU_Info:
+            MainMenuPos = MENU_Info + 1;
+            break;
+        case MENU_Info+1:
+            save_eeprom_config();
+            MainMenuPos = MENU_clock;
+            break;
+        #endif
+        default: 
+            MainMenuPos++;
+            break;
+        
     }
 }

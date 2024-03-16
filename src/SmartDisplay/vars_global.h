@@ -80,3 +80,6 @@ extern boolean trip1_active;
 
 extern unsigned int trip2;
 extern boolean trip_day_active;
+
+// configuration variable
+extern byte contrast;
