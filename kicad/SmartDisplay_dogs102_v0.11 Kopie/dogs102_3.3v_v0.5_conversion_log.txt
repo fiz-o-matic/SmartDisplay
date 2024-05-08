@@ -1,0 +1,22 @@
+#********** START OF renumber-sheet.ulp ULP Version 4.4.4 28-02-2018 :15:54:13 LOG **********#
+    Conversion completed with no Messages
+#********** END OF renumber-sheet.ulp ULP Version 4.4.4 28-02-2018 :15:54:13 LOG **********#
+
+#********** START OF fix_via_hack.ulp ULP Version 4.7.0 28-02-2018 :15:54:26 LOG **********#
+#********** END OF fix_via_hack.ulp ULP Version 4.7.0 28-02-2018 :15:54:26 LOG **********#
+
+#********** START OF eagle6xx-sch-to-kicad-sch.ulp 2.0 28-02-2018 :15:54:30 LOG **********#
+    Conversion completed with no Messages
+#********** END OF eagle6xx-sch-to-kicad-sch.ulp 2.0 28-02-2018 :15:54:30 LOG **********#
+
+#********** START OF exp-lbrs.ulp 6.8 28-02-2018 :15:55:19 LOG **********#
+OK: Eagle library export from SCH/PCB successful
+    Conversion completed with no messages
+#********** END OF exp-lbrs.ulp 6.8 28-02-2018 :15:55:19 LOG **********#
+
+
+#********** START OF eagle-lbr2kicad-1.0.ulp 3.0 28-02-2018 :15:55:33 LOG **********#
+Missing Prefix Part =''				EA_DOGS102-6					dogs102_3.3v_v0.5		M
+    Conversion completed with no Messages
+#********** END OF eagle-lbr2kicad-1.0.ulp 3.0 28-02-2018 :15:55:33 LOG **********#
+

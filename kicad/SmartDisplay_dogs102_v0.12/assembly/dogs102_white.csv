@@ -1,0 +1,21 @@
+NEODEN,YY1,P&P FILE,,,,,,,,,,,
+,,,,,,,,,,,,,
+PanelizedPCB,UnitLength,0,UnitWidth,0,Rows,1,Columns,1,
+,,,,,,,,,,,,,
+Fiducial,1-X,0,1-Y,0,OverallOffsetX,0.00,OverallOffsetY,0.00,
+,,,,,,,,,,,,,
+NozzleChange,OFF,BeforeComponent,1,Head1,Drop,Station2,PickUp,Station1,
+NozzleChange,OFF,BeforeComponent,2,Head2,Drop,Station3,PickUp,Station2,
+NozzleChange,OFF,BeforeComponent,1,Head1,Drop,Station1,PickUp,Station1,
+NozzleChange,OFF,BeforeComponent,1,Head1,Drop,Station1,PickUp,Station1,
+,,,,,,,,,,,,,
+Designator,Comment,Footprint,Mid X(mm),Mid Y(mm),Rotation,Head,FeederNo,Mount Speed(%),Pick Height(mm),Place Height(mm),Mode,Skip
+C1,1u,C_1210,35.20,-91.04,90.00,0,1,100,0,0,1,0
+C2,1u,C_1210,40.60,-91.04,90.00,0,1,100,0,0,1,0
+C3,1u,C_1210,45.20,-91.00,90.00,0,1,100,0,0,1,0
+C4,100n,C_0805,28.50,-89.00,180.00,0,1,100,0,0,1,0
+C8,22u,CP,53.51,-94.23,0.00,0,1,100,0,0,1,0
+C9,100n,C_0805,52.25,-104.14,0.00,0,1,100,0,0,1,0
+D1,SMBJ15CA,D,53.46,-99.82,0.00,0,1,100,0,0,1,0
+J1,Conn_01x10_MountingPin,JST,35.00,-113.20,0.00,0,1,100,0,0,1,0
+R4,560,R_0805,13.41,-119.50,0.00,0,1,100,0,0,1,0

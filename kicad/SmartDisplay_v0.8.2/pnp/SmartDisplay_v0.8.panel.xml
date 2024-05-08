@@ -1,0 +1,10 @@
+<openpnp-panel name="SmartDisplay_v0.8.panel.xml" version="2.0">
+   <dimensions units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
+   <placements/>
+   <children>
+      <object class="org.openpnp.model.BoardLocation" side="Top" id="Brd1" file-name="C:\Users\Brun\Nextcloud\Projekte\SmartDisplay MK2\kicad\SmartDisplay_v0.8\SmartDisplay.board.xml" check-fiducials="false" locally-enabled="true">
+         <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
+      </object>
+   </children>
+   <pseudo-placement-ids/>
+</openpnp-panel>

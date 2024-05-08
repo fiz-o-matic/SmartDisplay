@@ -1,0 +1,155 @@
+<openpnp-board version="1.1" name="SmartDisplay.board.xml">
+   <dimensions units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
+   <fiducials/>
+   <placements>
+      <placement version="1.4" id="C1" side="Top" part-id="C_0805_2012Metric_Pad1.18x1.45mm_HandSolder-100n" type="Placement" enabled="true">
+         <location units="Millimeters" x="35.7875" y="18.5" z="0.0" rotation="0.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="C2" side="Top" part-id="C_0805_2012Metric_Pad1.18x1.45mm_HandSolder-100n" type="Placement" enabled="true">
+         <location units="Millimeters" x="36.0" y="23.9625" z="0.0" rotation="90.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="C3" side="Top" part-id="CP_Elec_5x3.9-22u" type="Placement" enabled="false">
+         <location units="Millimeters" x="13.0" y="29.6" z="0.0" rotation="90.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="C5" side="Top" part-id="C_0805_2012Metric_Pad1.18x1.45mm_HandSolder-100n" type="Placement" enabled="true">
+         <location units="Millimeters" x="48.886" y="13.589" z="0.0" rotation="0.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="C6" side="Top" part-id="C_0805_2012Metric_Pad1.18x1.45mm_HandSolder-100n" type="Placement" enabled="true">
+         <location units="Millimeters" x="30.7125" y="31.75" z="0.0" rotation="0.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="C7" side="Top" part-id="C_0805_2012Metric_Pad1.18x1.45mm_HandSolder-22p" type="Placement" enabled="true">
+         <location units="Millimeters" x="52.5" y="30.0" z="0.0" rotation="0.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="C8" side="Top" part-id="C_0805_2012Metric_Pad1.18x1.45mm_HandSolder-22p" type="Placement" enabled="true">
+         <location units="Millimeters" x="52.587" y="21.844" z="0.0" rotation="180.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="C9" side="Top" part-id="C_0805_2012Metric_Pad1.18x1.45mm_HandSolder-100n" type="Placement" enabled="true">
+         <location units="Millimeters" x="19.304" y="27.695" z="0.0" rotation="90.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="C10" side="Top" part-id="C_0805_2012Metric_Pad1.15x1.40mm_HandSolder-100n" type="Placement" enabled="false">
+         <location units="Millimeters" x="26.0" y="34.975" z="0.0" rotation="270.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="C11" side="Top" part-id="CP_Elec_4x3.9-22u" type="Placement" enabled="false">
+         <location units="Millimeters" x="39.348" y="33.782" z="0.0" rotation="0.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="C12" side="Top" part-id="C_0805_2012Metric_Pad1.18x1.45mm_HandSolder-100n" type="Placement" enabled="true">
+         <location units="Millimeters" x="50.4" y="33.6375" z="0.0" rotation="270.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="C13" side="Top" part-id="CP_Elec_5x3.9-22u" type="Placement" enabled="false">
+         <location units="Millimeters" x="14.4" y="20.0" z="0.0" rotation="90.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="D1" side="Top" part-id="D_SOD-323_HandSoldering-1N5818" type="Placement" enabled="false">
+         <location units="Millimeters" x="47.752" y="33.254" z="0.0" rotation="270.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="D2" side="Top" part-id="D_SMB-SMBJ5.0CA" type="Placement" enabled="false">
+         <location units="Millimeters" x="41.792" y="12.7" z="0.0" rotation="180.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="D3" side="Top" part-id="SOT-23-BAT54S" type="Placement" enabled="false">
+         <location units="Millimeters" x="32.25" y="12.25" z="0.0" rotation="270.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="D4" side="Top" part-id="D_MiniMELF-BZV55-C12" type="Placement" enabled="false">
+         <location units="Millimeters" x="18.542" y="35.024" z="0.0" rotation="90.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="D5" side="Top" part-id="D_SOD-123-BAT42W-V" type="Placement" enabled="true">
+         <location units="Millimeters" x="23.5" y="35.15" z="0.0" rotation="90.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="D6" side="Top" part-id="D_SOD-123-BAT42W-V" type="Placement" enabled="true">
+         <location units="Millimeters" x="21.0" y="35.15" z="0.0" rotation="90.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="D7" side="Top" part-id="D_SMA-US1G" type="Placement" enabled="false">
+         <location units="Millimeters" x="6.0" y="30.25" z="0.0" rotation="180.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="D8" side="Top" part-id="D_SMB-SMBJ15CA" type="Placement" enabled="false">
+         <location units="Millimeters" x="5.85" y="25.75" z="0.0" rotation="180.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="D9" side="Top" part-id="SOT-23-BAT54S" type="Placement" enabled="false">
+         <location units="Millimeters" x="31.2" y="35.2" z="0.0" rotation="90.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="F1" side="Top" part-id="Fuse_1210_3225Metric_Pad1.42x2.65mm_HandSolder-Polyfuse" type="Placement" enabled="false">
+         <location units="Millimeters" x="5.9875" y="34.0" z="0.0" rotation="0.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="FID1" side="Top" part-id="Fiducial_0.5mm_Mask1mm-Fiducial" type="Fiducial" enabled="true">
+         <location units="Millimeters" x="9.25" y="42.75" z="0.0" rotation="0.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="FID2" side="Top" part-id="Fiducial_0.5mm_Mask1mm-Fiducial" type="Fiducial" enabled="true">
+         <location units="Millimeters" x="2.5" y="13.75" z="0.0" rotation="0.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="FID3" side="Top" part-id="Fiducial_0.5mm_Mask1mm-Fiducial" type="Fiducial" enabled="true">
+         <location units="Millimeters" x="52.75" y="8.75" z="0.0" rotation="0.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="R2" side="Top" part-id="R_0805_2012Metric_Pad1.20x1.40mm_HandSolder-120" type="Placement" enabled="false">
+         <location units="Millimeters" x="52.587" y="19.812" z="0.0" rotation="180.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="R3" side="Top" part-id="R_0805_2012Metric_Pad1.20x1.40mm_HandSolder-10k" type="Placement" enabled="true">
+         <location units="Millimeters" x="34.0" y="33.75" z="0.0" rotation="270.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="R4" side="Top" part-id="R_0805_2012Metric_Pad1.20x1.40mm_HandSolder-10k" type="Placement" enabled="true">
+         <location units="Millimeters" x="21.59" y="27.695" z="0.0" rotation="270.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="R5" side="Top" part-id="R_0805_2012Metric_Pad1.20x1.40mm_HandSolder-1k" type="Placement" enabled="false">
+         <location units="Millimeters" x="17.145" y="27.695" z="0.0" rotation="270.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="R6" side="Top" part-id="R_0805_2012Metric_Pad1.20x1.40mm_HandSolder-15k" type="Placement" enabled="false">
+         <location units="Millimeters" x="14.723" y="36.068" z="0.0" rotation="180.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="R7" side="Top" part-id="R_0805_2012Metric_Pad1.20x1.40mm_HandSolder-4,7k" type="Placement" enabled="true">
+         <location units="Millimeters" x="28.5" y="35.0" z="0.0" rotation="270.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="R8" side="Top" part-id="R_0805_2012Metric_Pad1.20x1.40mm_HandSolder-4,7k" type="Placement" enabled="true">
+         <location units="Millimeters" x="36.0" y="13.75" z="0.0" rotation="0.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="U1" side="Top" part-id="TQFP-32_7x7mm_P0.8mm-ATmega4808-A" type="Placement" enabled="false">
+         <location units="Millimeters" x="29.5" y="24.8" z="0.0" rotation="0.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="U2" side="Top" part-id="SOIC-8_3.9x4.9mm_P1.27mm-MCP2562-E-SN" type="Placement" enabled="false">
+         <location units="Millimeters" x="53.467" y="14.797" z="0.0" rotation="270.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="U3" side="Top" part-id="SOIC-18W_7.5x11.6mm_P1.27mm-MCP2515-xSO" type="Placement" enabled="false">
+         <location units="Millimeters" x="43.85" y="23.58" z="0.0" rotation="180.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="U4" side="Top" part-id="SOT-223-3_TabPin2-LT1117-5.0" type="Placement" enabled="false">
+         <location units="Millimeters" x="5.85" y="19.25" z="0.0" rotation="180.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+      <placement version="1.4" id="Y2" side="Top" part-id="Crystal_SMD_EuroQuartz_MJ-4Pin_5.0x3.2mm-16MHz" type="Placement" enabled="false">
+         <location units="Millimeters" x="52.458" y="25.836" z="0.0" rotation="270.0"/>
+         <error-handling>Alert</error-handling>
+      </placement>
+   </placements>
+   <solder-paste-pads/>
+</openpnp-board>

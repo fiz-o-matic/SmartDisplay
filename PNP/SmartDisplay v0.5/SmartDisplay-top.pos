@@ -1,0 +1,43 @@
+### Module positions - created on 2022 October 26, Wednesday 13:12:07 ###
+### Printed by Pcbnew version kicad (5.1.12-1-10_14)
+## Unit = mm, Angle = deg.
+## Side : top
+# Ref     Val           Package                                              PosX       PosY       Rot  Side
+C1        100n          C_0805_2012Metric_Pad1.18x1.45mm_HandSolder       35.7875    18.5000    0.0000  top
+C2        100n          C_0805_2012Metric_Pad1.18x1.45mm_HandSolder       36.0000    23.9625   90.0000  top
+C3        22u           CP_Elec_5x3.9                                     13.0000    29.6000   90.0000  top
+C5        100n          C_0805_2012Metric_Pad1.18x1.45mm_HandSolder       48.8860    13.5890    0.0000  top
+C6        100n          C_0805_2012Metric_Pad1.18x1.45mm_HandSolder       30.7125    31.7500    0.0000  top
+C7        22p           C_0805_2012Metric_Pad1.18x1.45mm_HandSolder       52.5000    30.0000    0.0000  top
+C8        22p           C_0805_2012Metric_Pad1.18x1.45mm_HandSolder       52.5870    21.8440  180.0000  top
+C9        100n          C_0805_2012Metric_Pad1.18x1.45mm_HandSolder       19.3040    27.6950   90.0000  top
+C10       100n          C_0805_2012Metric_Pad1.15x1.40mm_HandSolder       26.0000    34.9750  270.0000  top
+C11       22u           CP_Elec_4x3.9                                     39.3480    33.7820    0.0000  top
+C12       100n          C_0805_2012Metric_Pad1.18x1.45mm_HandSolder       50.4000    33.6375  270.0000  top
+C13       22u           CP_Elec_5x3.9                                     14.4000    20.0000   90.0000  top
+D1        1N5818        D_SOD-323_HandSoldering                           47.7520    33.2540  270.0000  top
+D2        SMBJ5.0CA     D_SMB                                             41.7920    12.7000  180.0000  top
+D3        BAT54S        SOT-23                                            32.2500    12.2500  270.0000  top
+D4        BZV55-C12     D_MiniMELF                                        18.5420    35.0240   90.0000  top
+D5        BAT42W-V      D_SOD-123                                         23.5000    35.1500   90.0000  top
+D6        BAT42W-V      D_SOD-123                                         21.0000    35.1500   90.0000  top
+D7        US1G          D_SMA                                              6.0000    30.2500  180.0000  top
+D8        SMBJ15CA      D_SMB                                              5.8500    25.7500  180.0000  top
+D9        BAT54S        SOT-23                                            31.2000    35.2000   90.0000  top
+F1        Polyfuse      Fuse_1210_3225Metric_Pad1.42x2.65mm_HandSolder     5.9875    34.0000    0.0000  top
+FID1      Fiducial      Fiducial_0.5mm_Mask1mm                             9.2500    42.7500    0.0000  top
+FID2      Fiducial      Fiducial_0.5mm_Mask1mm                             2.5000    13.7500    0.0000  top
+FID3      Fiducial      Fiducial_0.5mm_Mask1mm                            52.7500     8.7500    0.0000  top
+R2        120           R_0805_2012Metric_Pad1.20x1.40mm_HandSolder       52.5870    19.8120  180.0000  top
+R3        10k           R_0805_2012Metric_Pad1.20x1.40mm_HandSolder       34.0000    33.7500  270.0000  top
+R4        10k           R_0805_2012Metric_Pad1.20x1.40mm_HandSolder       21.5900    27.6950  270.0000  top
+R5        1k            R_0805_2012Metric_Pad1.20x1.40mm_HandSolder       17.1450    27.6950  270.0000  top
+R6        15k           R_0805_2012Metric_Pad1.20x1.40mm_HandSolder       14.7230    36.0680  180.0000  top
+R7        4,7k          R_0805_2012Metric_Pad1.20x1.40mm_HandSolder       28.5000    35.0000  270.0000  top
+R8        4,7k          R_0805_2012Metric_Pad1.20x1.40mm_HandSolder       36.0000    13.7500    0.0000  top
+U1        ATmega4808-A  TQFP-32_7x7mm_P0.8mm                              29.5000    24.8000    0.0000  top
+U2        MCP2562-E-SN  SOIC-8_3.9x4.9mm_P1.27mm                          53.4670    14.7970  270.0000  top
+U3        MCP2515-xSO   SOIC-18W_7.5x11.6mm_P1.27mm                       43.8500    23.5800  180.0000  top
+U4        LT1117-5.0    SOT-223-3_TabPin2                                  5.8500    19.2500  180.0000  top
+Y2        16MHz         Crystal_SMD_EuroQuartz_MJ-4Pin_5.0x3.2mm          52.4580    25.8360  270.0000  top
+## End

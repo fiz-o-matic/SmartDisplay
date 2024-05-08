@@ -1,0 +1,24 @@
+<openpnp-job version="2.0">
+   <root-panel version="2.0">
+      <dimensions units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
+      <placements/>
+      <children>
+         <object class="org.openpnp.model.BoardLocation" side="Top" id="Brd1" file-name="C:\Users\Brun\Nextcloud\Projekte\SmartDisplay MK2\kicad\SmartDisplay_v0.8\pnp\SmartDisplay_v0.8.board.xml" check-fiducials="true" locally-enabled="false">
+            <location units="Millimeters" x="146.3545974403545" y="216.20200947675642" z="-28.80000000000001" rotation="0.0"/>
+         </object>
+         <object class="org.openpnp.model.BoardLocation" side="Top" id="Brd2" file-name="C:\Users\Brun\Nextcloud\Projekte\SmartDisplay MK2\kicad\SmartDisplay_v0.8\pnp\SmartDisplay_v0.8.board.xml" check-fiducials="true" locally-enabled="true">
+            <location units="Millimeters" x="208.75459744035447" y="216.20200947675642" z="-28.8" rotation="0.0"/>
+         </object>
+      </children>
+      <pseudo-placement-ids/>
+   </root-panel>
+   <placed-status-map class="java.util.HashMap">
+      <entry>
+         <string>Brd1⇒U1</string>
+         <boolean>true</boolean>
+      </entry>
+   </placed-status-map>
+   <enabled-state-map class="java.util.HashMap"/>
+   <check-fiducials-state-map class="java.util.HashMap"/>
+   <error-handling-state-map class="java.util.HashMap"/>
+</openpnp-job>

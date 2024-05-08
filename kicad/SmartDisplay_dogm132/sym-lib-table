@@ -1,0 +1,5 @@
+(sym_lib_table
+  (lib (name dogs102)(type Legacy)(uri ${KIPRJMOD}/dogs102.lib)(options "")(descr ""))
+  (lib (name dogs102-rescue)(type Legacy)(uri ${KIPRJMOD}/dogs102-rescue.lib)(options "")(descr ""))
+  (lib (name 2023-01-20_21-47-25)(type Legacy)(uri /Users/brun/Nextcloud/Projekte/kicad/ul_EA-DOGM162S-A/KiCAD/2023-01-20_21-47-25/2023-01-20_21-47-25.lib)(options "")(descr ""))
+)

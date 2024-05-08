@@ -1,0 +1,12 @@
+NEODEN,YY1,P&P FILE,,,,,,,,,,,
+,,,,,,,,,,,,,
+PanelizedPCB,UnitLength,0,UnitWidth,0,Rows,1,Columns,1,
+,,,,,,,,,,,,,
+Fiducial,1-X,0,1-Y,0,OverallOffsetX,0.00,OverallOffsetY,0.00,
+,,,,,,,,,,,,,
+NozzleChange,OFF,BeforeComponent,1,Head1,Drop,Station2,PickUp,Station1,
+NozzleChange,OFF,BeforeComponent,2,Head2,Drop,Station3,PickUp,Station2,
+NozzleChange,OFF,BeforeComponent,1,Head1,Drop,Station1,PickUp,Station1,
+NozzleChange,OFF,BeforeComponent,1,Head1,Drop,Station1,PickUp,Station1,
+,,,,,,,,,,,,,
+Designator,Comment,Footprint,Mid X(mm),Mid Y(mm),Rotation,Head,FeederNo,Mount Speed(%),Pick Height(mm),Place Height(mm),Mode,Skip
