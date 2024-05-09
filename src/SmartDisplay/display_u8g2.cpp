@@ -261,19 +261,19 @@ void display() {
 
 
 void menu_logo() {
-	noInterrupts();
+	//noInterrupts();
 	u8g2.firstPage();
   	do {
 		u8g2.drawXBM(LOGO_Xpos, LOGO_Ypos, LOGO_width, LOGO_height, logo);
 	} while ( u8g2.nextPage() );
-	interrupts();
+	//interrupts();
 }
 
 /*
  * simple clock with date
  */
 void menu_clock() {
-  noInterrupts();
+  //noInterrupts();
   int m;
   //clear_screen();
   u8g2.firstPage();
@@ -304,7 +304,7 @@ void menu_clock() {
     }
   } while ( u8g2.nextPage() );
 
-  interrupts();
+  //interrupts();
 }
 
 void menu_speed(int DESC, float VALUE, byte DIGITS, String SUFFIX) {

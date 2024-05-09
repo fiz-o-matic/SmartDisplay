@@ -22,9 +22,9 @@ TinyGPSPlus gps;
 
 void GPS_init() {
 
-    #ifdef GPS_RESET_PIN
-    pinMode(GPS_RESET_PIN, OUTPUT);
-    digitalWrite(GPS_RESET_PIN, HIGH); 
+    #ifdef GSP_RESET_PIN
+    pinMode(GSP_RESET_PIN, OUTPUT);
+    digitalWrite(GSP_RESET_PIN, HIGH); 
     #endif
 
     tinyGPS_reset();
@@ -38,13 +38,39 @@ void GPS_init() {
 
 
 void GPS_loop() {
-    unsigned long start = millis();
+    static char c;
+    static boolean nl;
+    static boolean br;
+    static unsigned long start;
+    nl = false;
+    br = false;
+    start = millis();
+
+    //DEBUG_PRINT("Start");
     do {
-        while (GPS_SERIAL.available())
-            gps.encode(GPS_SERIAL.read());
+        while (GPS_SERIAL.available()) {
+            //gps.encode(GPS_SERIAL.read());
             //DEBUG_PRINT(GPS_SERIAL.read());
             //DEBUG_PRINT(F("."));
-    } while (millis() - start < 500);
+            c = GPS_SERIAL.read();
+            gps.encode(c);
+            //DEBUG_PRINT(GPS_SERIAL.read());
+            //DEBUG_PRINT(F("."));
+            //Serial.print(c);
+            if ( c == '\n' ) {
+                //Serial.println("NewLine");
+                nl = true;
+                break;
+            }
+        }
+        // timeout
+        if ( millis() - start > 200 ) {
+            //Serial.println(millis() - start, DEC);
+            //DEBUG_PRINT(F("GPS TimeOut..."));
+            break;
+        }
+    //} while (millis() - start < 500);
+    } while (nl == false);
 
     //DEBUG_PRINT(F("GPS chars processed: "));
     //DEBUG_PRINT(gps.charsProcessed());
@@ -95,7 +121,7 @@ void GPS_loop() {
         speed_available = true;
         speed = gps.speed.kmph();
         if ( speed >= 10 ) {
-            speed += GPS_SPEED_OFFSET;
+            speed += GSP_SPEED_OFFSET;
         }
     }
     else {
@@ -150,12 +176,12 @@ void GPS_loop() {
 
 
 void tinyGPS_reset() {
-    #ifdef GPS_RESET_PIN
+    #ifdef GSP_RESET_PIN
     DEBUG_PRINT("RESET GPS MODULE");
 
-    digitalWrite(GPS_RESET_PIN, LOW); 
+    digitalWrite(GSP_RESET_PIN, LOW); 
     delay(1000);
-    digitalWrite(GPS_RESET_PIN, HIGH); 
+    digitalWrite(GSP_RESET_PIN, HIGH); 
     //DEBUG_PRINT("RESET DONE");
 
     #endif

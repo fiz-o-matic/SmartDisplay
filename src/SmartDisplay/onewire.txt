@@ -48,7 +48,7 @@ void onewire_init() {
 
     if (sensors.getTempCByIndex(0) != -127 ) {
       temp_out_active = true;
-      DEBUG_PRINTLN("Found 1Wire Sensor");
+      //DEBUG_PRINTLN("Found 1Wire Sensor");
     }
     else {
       DEBUG_PRINTLN("No 1Wire Sensor found");

@@ -45,7 +45,7 @@ void key_interrupt() {
   if ( digitalRead(KEY) == LOW ) {
     if ( timer_check(&key_timer, (KEY_DEBOUNCE*3) ) ) {
       key_pressed = millis();
-      
+      //DEBUG_PRINT("Key Interrupt");
     }
   }
   else {
@@ -68,7 +68,10 @@ void key_interrupt() {
 void key_loop() {
     if ( digitalRead(KEY) == LOW ) {
         if ( (key_pressed + KEY_DEBOUNCE) <= millis() ) {
-            DEBUG_PRINT(F("KEY pressed..."));
+            //DEBUG_PRINT(F("KEY pressed..."));
+            //DEBUG_PRINT(String(key_pressed + KEY_LONGPRESS, DEC));
+            //DEBUG_PRINT(String(key_pressed + KEY_LONGPRESS - millis(), DEC));
+            if ( key_pressed == 0 ) key_pressed = millis();
 
         }
         if ( (key_pressed + KEY_LONGPRESS) <= millis() ) {
@@ -147,7 +150,8 @@ void key_long() {
             tinyGPS_reset();
             break;
         case MENU_clock:
-            //DEBUG_PRINT("REBOOT...");
+            DEBUG_PRINT("REBOOT...");
+            delay(1000);
             asm volatile ("jmp 0");
             break;
         default: 

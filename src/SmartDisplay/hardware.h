@@ -13,7 +13,9 @@
 
 //global definition
 //#define KEY 3
-
+// maximum key press intervall in milliseconds
+#define KEY_DEBOUNCE 60
+#define KEY_LONGPRESS 3000
 
 // ONLY for debugging
 #define GPS_RXPin A0
@@ -47,7 +49,7 @@
 #define GPS_ENABLED
 #define GPS_BAUD 9600
 #define GPS_SERIAL Serial1
-#define GPS_RESET_PIN 11
+#define GSP_RESET_PIN 11
 
 // OneWire Bus
 #define ONEWIRE
@@ -102,7 +104,7 @@
 #define GPS_ENABLED
 #define GPS_BAUD 9600
 #define GPS_SERIAL Serial1
-#define GPS_RESET_PIN 11
+#define GSP_RESET_PIN 11
 
 // OneWire Bus
 #define ONEWIRE

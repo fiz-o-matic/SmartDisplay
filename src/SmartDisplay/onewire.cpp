@@ -57,7 +57,7 @@
  * If defined: set permanent, common resolution for all sensors on the bus.
  * Resolution may vary from 9 to 12 bits.
  */
-//#define COMMON_RES      (DSTherm::RES_12_BIT)
+#define COMMON_RES      (DSTherm::RES_12_BIT)
 
 #if !defined(SINGLE_SENSOR) && !CONFIG_SEARCH_ENABLED
 # error "CONFIG_SEARCH_ENABLED is required for non single sensor setup"
@@ -79,6 +79,11 @@ static_assert(CONFIG_MAX_SEARCH_FILTERS >= DSTherm::SUPPORTED_SLAVES_NUM,
 #endif
 
 static Placeholder<OneWireNg_CurrentPlatform> ow;
+
+unsigned long onewire_timer = 0;
+
+// from main.cpp
+bool timer_check(unsigned long *timer, unsigned long delay);
 
 /* returns false if not supported */
 static bool printId(const OneWireNg::Id& id)
@@ -154,6 +159,11 @@ void onewire_init()
 
 void onewire_loop()
 {
+
+    if ( !timer_check(&onewire_timer, ONEWIRE_TIMER) ) return;
+
+    //DEBUG_PRINT("start OneWire");
+    
     DSTherm drv(ow);
 
     /* convert temperature on all sensors connected... */
@@ -169,6 +179,7 @@ void onewire_loop()
     static Placeholder<DSTherm::Scratchpad> scrpd;
 
     OneWireNg::ErrorCode ec = drv.readScratchpadSingle(scrpd);
+    //DEBUG_PRINT("read OneWire");
     if (ec == OneWireNg::EC_SUCCESS) {
         //printId(scrpd->getId());
         //printScratchpad(scrpd);
@@ -185,4 +196,6 @@ void onewire_loop()
     //Serial.println("----------");
     //DEBUG_PRINT(String(temp_out, 2));
     //delay(1000);
+    //DEBUG_PRINT("end OneWire");
+
 }

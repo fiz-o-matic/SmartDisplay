@@ -94,11 +94,15 @@ void setup() {
 }
 
 void loop() {
+    //Serial.println(millis(), DEC);
+    //delay(1000);
+
     // run the tinyGPS Loop
     #ifdef GPS_ENABLED
     GPS_loop();
     //delay(100);
     #endif
+
 
     // run the Display Loop
     display_loop();

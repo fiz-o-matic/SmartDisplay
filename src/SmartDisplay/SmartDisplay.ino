@@ -23,6 +23,6 @@
  ****************************************************/
 
  
-#define VERSION_SW "0.9.3"
-#define BUILD "20240509"
+#define VERSION_SW "0.9.2"
+#define BUILD "20240508"
 
