@@ -309,7 +309,7 @@ void menu_clock() {
 
 void menu_speed(int DESC, float VALUE, byte DIGITS, String SUFFIX) {
   int m;
-  noInterrupts();
+  //noInterrupts();
   u8g2.firstPage();
   do {
     u8g2.clearBuffer();
@@ -356,12 +356,12 @@ void menu_speed(int DESC, float VALUE, byte DIGITS, String SUFFIX) {
       u8g2.print(buf);
     }
   } while ( u8g2.nextPage() );
-  interrupts();
+  //interrupts();
 }
 
 
 void menu_values(int DESC, float VALUE, byte DIGITS, String SUFFIX) {
-  noInterrupts();
+  //noInterrupts();
   if ( DIGITS == 1 ) {
     //i_tmp = (VALUE - ( (int) VALUE ))*10;
     //sprintf (buf, "%3d.%1d", (int)VALUE, i_tmp);
@@ -396,11 +396,11 @@ void menu_values(int DESC, float VALUE, byte DIGITS, String SUFFIX) {
     u8g2.setCursor(LAYOUT_VALUES_SUFFIX);
     u8g2.print(SUFFIX);
   } while ( u8g2.nextPage() );
-  interrupts();
+  //interrupts();
 }
 
 void menu_2values(int DESC, long VALUE1, byte DIGITS1, String SUFFIX1, long VALUE2, byte DIGITS2, String SUFFIX2) {
-  noInterrupts();
+  //noInterrupts();
   u8g2.firstPage();
   do {
     u8g2.clearBuffer();
@@ -422,12 +422,12 @@ void menu_2values(int DESC, long VALUE1, byte DIGITS1, String SUFFIX1, long VALU
     u8g2.print(gps_longitude,6);
 
   } while ( u8g2.nextPage() );
-  interrupts();
+  //interrupts();
 }
 
 
 void menu_values(char DESC[18], char VALUE[9], char SUFFIX[5]) {
-  noInterrupts();
+  //noInterrupts();
 
   u8g2.firstPage();
   do {
@@ -449,11 +449,11 @@ void menu_values(char DESC[18], char VALUE[9], char SUFFIX[5]) {
     u8g2.setCursor(LAYOUT_VALUES_SUFFIX);
     u8g2.print(SUFFIX);
   } while ( u8g2.nextPage() );
-  interrupts();
+  //interrupts();
 }
 
 void menu_2values(char DESC[18], char VALUE1[9], char SUFFIX1[5], char VALUE2[9], char SUFFIX2[5]) {
-	noInterrupts();
+	//noInterrupts();
   	u8g2.firstPage();
   	do {
 		u8g2.clearBuffer();
@@ -477,7 +477,7 @@ void menu_2values(char DESC[18], char VALUE1[9], char SUFFIX1[5], char VALUE2[9]
 		
 
 	} while ( u8g2.nextPage() );
-  	interrupts();
+  //interrupts();
 }
 
 void menu_can() {
@@ -495,7 +495,7 @@ void menu_can() {
 		menu_values(display_desc, display_value1, display_value1_suffix);
 	}
 
-  /*noInterrupts();
+  /*//noInterrupts();
 
   u8g2.firstPage();
   do {
@@ -529,12 +529,12 @@ void menu_can() {
 	}
     
   } while ( u8g2.nextPage() );
-  interrupts();*/
+  //interrupts();*/
 }
 
 
 void menu_gps_1() {
-  noInterrupts();
+  //noInterrupts();
   u8g2.firstPage();
   do {
     u8g2.clearBuffer();
@@ -569,11 +569,11 @@ void menu_gps_1() {
     }
 
   } while ( u8g2.nextPage() );
-  interrupts();
+  //interrupts();
 }
 
 void menu_info() {
-  noInterrupts();
+  //noInterrupts();
   u8g2.firstPage();
   do {
     u8g2.clearBuffer();
@@ -596,11 +596,11 @@ void menu_info() {
     u8g2.print(F(VERSION_HW));
   
   } while ( u8g2.nextPage() );
-  interrupts();
+  //interrupts();
 }
 
 void menu_config(int DESC, byte VALUE) {
-  noInterrupts();
+  //noInterrupts();
 
   u8g2.firstPage();
   do {
@@ -618,7 +618,7 @@ void menu_config(int DESC, byte VALUE) {
     u8g2.setFont(medium_font);
 
   } while ( u8g2.nextPage() );
-  interrupts();
+  //interrupts();
 }
 
 /*String format(float value, String format) {
