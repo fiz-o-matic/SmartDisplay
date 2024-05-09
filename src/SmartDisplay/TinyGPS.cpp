@@ -22,9 +22,9 @@ TinyGPSPlus gps;
 
 void GPS_init() {
 
-    #ifdef GSP_RESET_PIN
-    pinMode(GSP_RESET_PIN, OUTPUT);
-    digitalWrite(GSP_RESET_PIN, HIGH); 
+    #ifdef GPS_RESET_PIN
+    pinMode(GPS_RESET_PIN, OUTPUT);
+    digitalWrite(GPS_RESET_PIN, HIGH); 
     #endif
 
     tinyGPS_reset();
@@ -95,7 +95,7 @@ void GPS_loop() {
         speed_available = true;
         speed = gps.speed.kmph();
         if ( speed >= 10 ) {
-            speed += GSP_SPEED_OFFSET;
+            speed += GPS_SPEED_OFFSET;
         }
     }
     else {
@@ -150,12 +150,12 @@ void GPS_loop() {
 
 
 void tinyGPS_reset() {
-    #ifdef GSP_RESET_PIN
+    #ifdef GPS_RESET_PIN
     DEBUG_PRINT("RESET GPS MODULE");
 
-    digitalWrite(GSP_RESET_PIN, LOW); 
+    digitalWrite(GPS_RESET_PIN, LOW); 
     delay(1000);
-    digitalWrite(GSP_RESET_PIN, HIGH); 
+    digitalWrite(GPS_RESET_PIN, HIGH); 
     //DEBUG_PRINT("RESET DONE");
 
     #endif

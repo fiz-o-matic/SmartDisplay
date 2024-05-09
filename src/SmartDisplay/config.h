@@ -28,6 +28,10 @@
  * optional configuration
  */
 
+// define key behavior 
+#define KEY_DEBOUNCE 20
+#define KEY_LONGPRESS 3000
+
 // Time to disable the Display in Standby mode
 #define DISPLAY_TIMEOUT 600000 // 60s
 
@@ -41,7 +45,7 @@
 #define TRIP_CALC_TIMER 10000
 
 // GPS Speed Offset
-#define GSP_SPEED_OFFSET 0
+#define GPS_SPEED_OFFSET 0
 
 
 // sitch automaticly to spped menu if engine is running
