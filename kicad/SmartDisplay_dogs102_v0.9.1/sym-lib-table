@@ -1,4 +1,0 @@
-(sym_lib_table
-  (lib (name dogs102)(type Legacy)(uri ${KIPRJMOD}/dogs102.lib)(options "")(descr ""))
-  (lib (name dogs102-rescue)(type Legacy)(uri ${KIPRJMOD}/dogs102-rescue.lib)(options "")(descr ""))
-)

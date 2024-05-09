@@ -1,5 +1,0 @@
-(sym_lib_table
-  (version 7)
-  (lib (name "dogs102")(type "Legacy")(uri "${KIPRJMOD}/dogs102.lib")(options "")(descr ""))
-  (lib (name "dogs102-rescue")(type "KiCad")(uri "${KIPRJMOD}/dogs102-rescue.kicad_sym")(options "")(descr ""))
-)
