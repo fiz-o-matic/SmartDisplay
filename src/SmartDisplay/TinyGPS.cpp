@@ -38,13 +38,39 @@ void GPS_init() {
 
 
 void GPS_loop() {
-    unsigned long start = millis();
+    static char c;
+    static boolean nl;
+    static boolean br;
+    static unsigned long start;
+    nl = false;
+    br = false;
+    start = millis();
+
+    //DEBUG_PRINT("Start");
     do {
-        while (GPS_SERIAL.available())
-            gps.encode(GPS_SERIAL.read());
+        while (GPS_SERIAL.available()) {
+            //gps.encode(GPS_SERIAL.read());
             //DEBUG_PRINT(GPS_SERIAL.read());
             //DEBUG_PRINT(F("."));
-    } while (millis() - start < 500);
+            c = GPS_SERIAL.read();
+            gps.encode(c);
+            //DEBUG_PRINT(GPS_SERIAL.read());
+            //DEBUG_PRINT(F("."));
+            //Serial.print(c);
+            if ( c == '\n' ) {
+                //Serial.println("NewLine");
+                nl = true;
+                break;
+            }
+        }
+        // timeout
+        if ( millis() - start > 200 ) {
+            //Serial.println(millis() - start, DEC);
+            //DEBUG_PRINT(F("GPS TimeOut..."));
+            break;
+        }
+    //} while (millis() - start < 500);
+    } while (nl == false);
 
     //DEBUG_PRINT(F("GPS chars processed: "));
     //DEBUG_PRINT(gps.charsProcessed());
