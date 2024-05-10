@@ -69,6 +69,7 @@ void key_loop() {
     if ( digitalRead(KEY) == LOW ) {
         if ( (key_pressed + KEY_DEBOUNCE) <= millis() ) {
             DEBUG_PRINT(F("KEY pressed..."));
+            if ( key_pressed == 0 ) key_pressed = millis();
 
         }
         if ( (key_pressed + KEY_LONGPRESS) <= millis() ) {
