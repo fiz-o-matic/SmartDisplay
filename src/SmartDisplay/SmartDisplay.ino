@@ -13,10 +13,7 @@
  * https://wiki.fiz-o-matic.net/
  * 
  * 
- * 
- * This Sketch file is empty.
- * 
- * To configure the SmartDisplay use the config.h.
+ * The Sketch file is for the configuration only.
  * 
  * The setup and main functions are in the main.cpp.
  * 
@@ -24,5 +21,52 @@
 
  
 #define VERSION_SW "0.9.3"
-#define BUILD "20240509"
+#define BUILD "20240516"
 
+/*
+ * mendatory hardware defination
+ */
+
+//#define DEBUG
+//#define HW_ALPHA_OLED
+//#define HW_ALPHA_LCD
+//#define HW_BETA
+//#define HW_GAMMA
+
+
+
+// Timezone in GMT
+#define TIME_ZONE 1
+
+/*
+ * optional configuration
+ */
+
+// define key behavior 
+#define KEY_DEBOUNCE 20
+#define KEY_LONGPRESS 3000
+
+// Time to disable the Display in Standby mode
+// Only used for OLED Displays
+#define DISPLAY_TIMEOUT 600000 // 60s
+
+// Voltage value to turn on
+#define TURN_ON_VOLTAGE 13.0
+
+// Calibrate the Voltage 
+#define VOLTAGE_CALIBRATION 1
+
+// time between trip calculation
+#define TRIP_CALC_TIMER 10000
+
+// GPS Speed Offset
+#define GPS_SPEED_OFFSET 0
+
+
+// sitch automaticly to spped menu if engine is running
+//#define DISPLAY_AUTO_SWITCH
+
+
+
+// save trip only if distance is > x km
+#define EEPROM_SAVE_TRIP1 1

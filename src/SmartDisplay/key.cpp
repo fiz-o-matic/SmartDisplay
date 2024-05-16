@@ -68,7 +68,7 @@ void key_interrupt() {
 void key_loop() {
     if ( digitalRead(KEY) == LOW ) {
         if ( (key_pressed + KEY_DEBOUNCE) <= millis() ) {
-            DEBUG_PRINT(F("KEY pressed..."));
+            //DEBUG_PRINT(F("KEY pressed..."));
             if ( key_pressed == 0 ) key_pressed = millis();
 
         }
@@ -133,11 +133,11 @@ void key_long() {
             break;
         case MENU_Info+1:
             save_eeprom_config();
-            MainMenuPos = MENU_Info+2;
+            MainMenuPos = MENU_Info + 2;
             break;
         case MENU_Info+2:
             save_eeprom_config();
-            MainMenuPos = MENU_Info+3;
+            MainMenuPos = MENU_Info + 3;
             break;
         case MENU_Info+3:
             save_eeprom_config();

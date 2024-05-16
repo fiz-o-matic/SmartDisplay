@@ -21,7 +21,8 @@
 #include "drivers/DSTherm.h"
 #include "utils/Placeholder.h"
 
-#include "config.h"
+//#include "config.h"
+#include "SmartDisplay.ino"
 #include "hardware.h"
 #include "vars_global.h"
 

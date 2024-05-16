@@ -11,7 +11,8 @@
 
 
 #include <Arduino.h>
-#include "config.h"
+//#include "config.h"
+#include "SmartDisplay.ino"
 #include "hardware.h"
 #include "vars_global.h"
 #include "SmartDisplay.ino"
@@ -61,6 +62,7 @@ void menu_gps_1();
 void menu_can();
 void menu_info();
 void menu_config(int DESC, byte VALUE);
+void menu_config_bool(int DESC, byte VALUE);
 
 void print_string(int string_id);
 

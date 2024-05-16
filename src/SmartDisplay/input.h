@@ -9,7 +9,8 @@
  ****************************************************/
 
 #include <Arduino.h>
-#include "config.h"
+//#include "config.h"
+#include "SmartDisplay.ino"
 #include "hardware.h"
 #include "vars_global.h"
 

@@ -621,6 +621,34 @@ void menu_config(int DESC, byte VALUE) {
   //interrupts();
 }
 
+void menu_config_bool(int DESC, byte VALUE) {
+  //noInterrupts();
+
+  u8g2.firstPage();
+  do {
+    u8g2.clearBuffer();
+
+    u8g2.setFont(small_font);
+    u8g2.setFontPosTop();
+
+    u8g2.setCursor(LAYOUT_CONFIG_DESC);
+    print_string(DESC);
+
+    u8g2.setFont(medium_font);
+    u8g2.setCursor(LAYOUT_CONFIG_VALUE);
+    if ( VALUE == 0 ) {
+        u8g2.print("off");
+    }
+    else {
+        u8g2.print("on");
+    }
+    
+    u8g2.setFont(medium_font);
+
+  } while ( u8g2.nextPage() );
+  //interrupts();
+}
+
 /*String format(float value, String format) {
   int m = 0;
   if ( value >= 0 ) {

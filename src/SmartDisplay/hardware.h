@@ -8,7 +8,8 @@
  * License: Creative Common (CC BY-NC-SA 4.0)
  ****************************************************/
 #include <Arduino.h>
-#include "config.h"
+//#include "config.h"
+#include "SmartDisplay.ino"
 
 
 //global definition
