@@ -10,7 +10,7 @@
  * Author: Brun
  * License: Creative Common (CC BY-NC-SA 4.0)
  ****************************************************/
-#include <Arduino.h>
+/*#include <Arduino.h>
 
 #define CANADDR_time 0xA0
 #define CANADDR_unixtime 0xA1
@@ -23,4 +23,4 @@
 #define CANADDR_klima 0xB4
 #define CANADDR_trip 0xC1
 #define CANADDR_display 0xF1
-#define CANADDR_display_replay 0xF2
+#define CANADDR_display_replay 0xF2*/

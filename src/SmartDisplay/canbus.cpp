@@ -126,7 +126,7 @@ void can_init () {
                                                                         1) ; // Filter array size
         //const uint32_t errorCode = can.begin (settings, [] { can.isr () ; }, rxm0, filter, 1) ;
         if (errorCode == 0) {
-                /*
+                
                 DEBUG_PRINT ("Bit Rate prescaler:  " + String(settings.mBitRatePrescaler)) ;
                 DEBUG_PRINT ("Propagation Segment: " + String(settings.mPropagationSegment)) ;
                 DEBUG_PRINT ("Phase Segment 1:     " + String(settings.mPhaseSegment1)) ;
@@ -137,7 +137,7 @@ void can_init () {
                 DEBUG_PRINT ("Exact bit rate ?     " + String(settings.exactBitRate () ? "yes" : "no")) ;
                 DEBUG_PRINT ("Distance             " + String(settings.ppmFromDesiredBitRate()) + " ppm") ;
                 DEBUG_PRINT ("Sample point:        " + String(settings.samplePointFromBitStart()) + "%") ;
-                */
+                
                 DEBUG_PRINT ("Configuration OK!");
         }else{
                 //Serial.print ("Configuration error 0x") ;

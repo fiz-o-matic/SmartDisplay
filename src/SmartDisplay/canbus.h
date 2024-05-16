@@ -13,7 +13,7 @@ void request_display_description(uint16_t value_addr);
 
 //CAN canbus = CAN();
 
-class CAN {
+/*class CAN {
     private:
         
     public:
@@ -37,7 +37,7 @@ class CAN {
 
     
 
-}CAN;
+}CAN;*/
 
 
 #endif

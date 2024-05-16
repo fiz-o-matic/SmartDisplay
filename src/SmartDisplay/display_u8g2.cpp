@@ -30,7 +30,9 @@ void display_init(void) {
     u8g2.enableUTF8Print();
     //u8g2.setContrast(20);
     clear_screen();
+    #ifndef DEBUG
     menu_logo();
+    #endif
 }
 
 
@@ -259,7 +261,7 @@ void display() {
 
 }
 
-
+#ifndef DEBUG
 void menu_logo() {
 	//noInterrupts();
 	u8g2.firstPage();
@@ -268,6 +270,7 @@ void menu_logo() {
 	} while ( u8g2.nextPage() );
 	//interrupts();
 }
+#endif
 
 /*
  * simple clock with date
