@@ -41,112 +41,119 @@ void calc_trip() {
 }
 
 void reset_trip() {
+    #ifdef DEBUG
+    trip_distance += 12.34;
+    write_eeprom_trip1();
+    #else
     trip_distance = 0;
     clear_eeprom_trip1();
+    #endif
 }
 
 /*
  *    caclulating distance
  */
 float get_distance(float latitude1, float longitude1, float latitude2, float longitude2) {
-  float delLat = (latitude2 - latitude1) * 111194.9;
-  float delLong = 111194.9 * (longitude2 - longitude1) * cos(radians((latitude2 + latitude1) / 2));
-  float distance = sqrt(pow(delLat, 2) + pow(delLong, 2));
+    float delLat = (latitude2 - latitude1) * 111194.9;
+    float delLong = 111194.9 * (longitude2 - longitude1) * cos(radians((latitude2 + latitude1) / 2));
+    float distance = sqrt(pow(delLat, 2) + pow(delLong, 2));
 
-  return distance;
+    return distance;
 }
 
 void read_eeprom_trip1() {
-  //float dist = 0.00f;
-  //float f = 0.00f;
-  //float tmp = 0.00f;
-  byte tmp_i = 0;
+    //float dist = 0.00f;
+    //float f = 0.00f;
+    //float tmp = 0.00f;
+    byte tmp_i = 0;
 
-  for (byte i=0;i<=EEPROM_VAL_TRIP1;i++) {
-    EEPROM.get( i*4, f );
-    //DEBUG_PRINT(i*4);
-    //DEBUG_PRINT(F(": "));
-    //DEBUG_PRINT(f);
-    if ( f > tmp ) {
-      tmp = f;
-      tmp_i = i;
-      trip_distance = f;
+    for (byte i = 0;i <= EEPROM_VAL_TRIP1 - 1;i++) {
+        EEPROM.get( i*4, f );
+        //DEBUG_PRINT(i*4);
+        //DEBUG_PRINT(F(": "));
+        //DEBUG_PRINT(f);
+        DEBUG_PRINT(String(i*4, DEC) + F(": ") + String(f, DEC));
+        if ( f > tmp ) {
+        tmp = f;
+        tmp_i = i;
+        trip_distance = f;
+        }
     }
-  }
-  //DEBUG_PRINT(tmp_i*4);
-  //DEBUG_PRINT(F(": "));
-  //DEBUG_PRINT(tmp);
-  DEBUG_PRINT("TRIP: " + String(tmp_i*4) + " : " + String(trip_distance));
-  //DEBUG_PRINT(tmp_i*4);
-  //DEBUG_PRINT(F(": "));
-  //DEBUG_PRINT(trip_distance);
-  
-}
+    //DEBUG_PRINT(tmp_i*4);
+    //DEBUG_PRINT(F(": "));
+    //DEBUG_PRINT(tmp);
+    DEBUG_PRINT("TRIP: " + String(tmp_i*4) + " : " + String(trip_distance));
+    //DEBUG_PRINT(tmp_i*4);
+    //DEBUG_PRINT(F(": "));
+    //DEBUG_PRINT(trip_distance);
+    
+    }
 
 void write_eeprom_trip1() {
-  /*EEPROM.put(0, 12345.245);
-  EEPROM.put(4, 66345.4578);
-  EEPROM.put(8, 547345.784);
-  EEPROM.put(12, 4574.367);*/
-  //float f = 0.00f;
-  //float tmp = 0.00f;
-  int tmp_i = 0;
-  f = 0;
-  tmp = 0;
+    /*EEPROM.put(0, 12345.245);
+    EEPROM.put(4, 66345.4578);
+    EEPROM.put(8, 547345.784);
+    EEPROM.put(12, 4574.367);*/
+    //float f = 0.00f;
+    //float tmp = 0.00f;
+    static int tmp_i;
+    tmp_i = 0;
+    f = 0;
+    tmp = 0;
 
-  for (byte i=0;i<=EEPROM_VAL_TRIP1;i++) {
-    EEPROM.get( i*4, f );
-    /*DEBUG_PRINT(i*4);
-    DEBUG_PRINT(F(": "));
-    DEBUG_PRINT(f);*/
-    if ( f > tmp ) {
-      tmp = f;
-      tmp_i = i;
-      //DEBUG_PRINT("*");
+    for (byte i = 0;i <= EEPROM_VAL_TRIP1 - 1;i++) {
+        EEPROM.get( EEPROM_ADDR_TRIP1 + (i * 4), f );
+        DEBUG_PRINT(String(i*4, DEC) + F(": ") + String(f, DEC));
+        //DEBUG_PRINT(F(": "));
+        //DEBUG_PRINT(f);
+        if ( f > tmp ) {
+        tmp = f;
+        tmp_i = i;
+        //DEBUG_PRINT("*");
+        }
     }
-  }
-  /*DEBUG_PRINT("LAST ");
-  DEBUG_PRINT(tmp_i*4);
-  DEBUG_PRINT(F(": "));
-  DEBUG_PRINT(tmp);*/
-
-  if ( tmp_i == EEPROM_VAL_TRIP1) {
-    tmp_i=0;
-  }
-  else {
-    tmp_i++;
-  }
-
-  //randomSeed(analogRead(A4));
-  //byte rndnum = random(0,EEPROM_VAL_TRIP1);
-  /*while ( rndnum == tmp_i ) {
-    DEBUG_PRINT("new rndnum...");
-    //DEBUG_PRINT(rndnum);
-    //DEBUG_PRINT(tmp_i);
-    rndnum = random(0,EEPROM_VAL_TRIP1);
-  }*/
-
-  DEBUG_PRINT(F(" TRIP: "));
-  DEBUG_PRINT(trip_distance);
-  if ( tmp + EEPROM_SAVE_TRIP1 <= trip_distance  ) {
-    /*DEBUG_PRINT(F("WRITE: "));
+    /*DEBUG_PRINT("LAST ");
     DEBUG_PRINT(tmp_i*4);
-    DEBUG_PRINT(F(" : "));
-    DEBUG_PRINT(trip_distance);*/
-    EEPROM.put(tmp_i*4, trip_distance);
-  }
-  /*else {
-    DEBUG_PRINT("NO NEED to write EEPROM");
-    //DEBUG_PRINT(F(" TRIP: "));
+    DEBUG_PRINT(F(": "));
+    DEBUG_PRINT(tmp);*/
+
+    if ( tmp_i == EEPROM_VAL_TRIP1 - 1 ) {
+        tmp_i=0;
+    }
+    else {
+        tmp_i++;
+    }
+
+    //randomSeed(analogRead(A4));
+    //byte rndnum = random(0,EEPROM_VAL_TRIP1);
+    /*while ( rndnum == tmp_i ) {
+        DEBUG_PRINT("new rndnum...");
+        //DEBUG_PRINT(rndnum);
+        //DEBUG_PRINT(tmp_i);
+        rndnum = random(0,EEPROM_VAL_TRIP1);
+    }*/
+
+    DEBUG_PRINT(" TRIP: " + String(trip_distance, DEC));
     //DEBUG_PRINT(trip_distance);
-    trip_distance += float(rndnum)*8/10;
-  }*/
-  
+    if ( tmp + EEPROM_SAVE_TRIP1 <= trip_distance  ) {
+        /*DEBUG_PRINT(F("WRITE: "));
+        DEBUG_PRINT(tmp_i*4);
+        DEBUG_PRINT(F(" : "));
+        DEBUG_PRINT(trip_distance);*/
+        EEPROM.put(EEPROM_ADDR_TRIP1 + (tmp_i * 4), trip_distance);
+    }
+    /*else {
+        DEBUG_PRINT("NO NEED to write EEPROM");
+        //DEBUG_PRINT(F(" TRIP: "));
+        //DEBUG_PRINT(trip_distance);
+        trip_distance += float(rndnum)*8/10;
+    }*/
+    
 }
 
 void clear_eeprom_trip1() {
-  for (byte i=0;i<=EEPROM_VAL_TRIP1;i++) {
-    EEPROM.put(i*4, 0.00);
+  for (byte i = 0; i <= EEPROM_VAL_TRIP1 - 1; i++) {
+    EEPROM.put(EEPROM_ADDR_TRIP1 + (i * 4) , 0.00);
     DEBUG_PRINT(F("clear: "));
     DEBUG_PRINT(i*4);
   }

@@ -2,10 +2,15 @@
 // With 16 values in EEPROM and write every km max. 
 // EEPROM Lifetime is 1,600,000 km
 
+// EEPROM Size on atmega4808 = 256 Bytes
+
 // number of values in eeprom
+// 16 * 4Byte = 64 Byte
 #define EEPROM_VAL_TRIP1 16
+#define EEPROM_ADDR_TRIP1 0
 
 // EEPROM Config addresses
-#define EEPROM_VAL_CONTRAST EEPROM_VAL_TRIP1*4 + 1
-#define EEPROM_VAL_AUTOSWITCH EEPROM_VAL_CONTRAST + 1
-#define EEPROM_VAL_SPEEDOFFSET EEPROM_VAL_AUTOSWITCH + 1
+#define EEPROM_ADDR_CONTRAST EEPROM_VAL_TRIP1*4 + 1
+#define EEPROM_ADDR_AUTOSWITCH EEPROM_ADDR_CONTRAST + 1
+#define EEPROM_ADDR_SPEEDOFFSET EEPROM_ADDR_AUTOSWITCH + 1
+
