@@ -68,11 +68,11 @@ void read_eeprom_trip1() {
     byte tmp_i = 0;
 
     for (byte i = 0;i <= EEPROM_VAL_TRIP1 - 1;i++) {
-        EEPROM.get( i*4, f );
+        EEPROM.get( EEPROM_ADDR_TRIP1 + (i * 4), f );
         //DEBUG_PRINT(i*4);
         //DEBUG_PRINT(F(": "));
         //DEBUG_PRINT(f);
-        DEBUG_PRINT(String(i*4, DEC) + F(": ") + String(f, DEC));
+        DEBUG_PRINT(String(EEPROM_ADDR_TRIP1 + i*4, DEC) + F(": ") + String(f, DEC));
         if ( f > tmp ) {
         tmp = f;
         tmp_i = i;
@@ -82,7 +82,7 @@ void read_eeprom_trip1() {
     //DEBUG_PRINT(tmp_i*4);
     //DEBUG_PRINT(F(": "));
     //DEBUG_PRINT(tmp);
-    DEBUG_PRINT("TRIP: " + String(tmp_i*4) + " : " + String(trip_distance));
+    DEBUG_PRINT("TRIP: " + String(EEPROM_ADDR_TRIP1 + tmp_i*4) + " : " + String(trip_distance));
     //DEBUG_PRINT(tmp_i*4);
     //DEBUG_PRINT(F(": "));
     //DEBUG_PRINT(trip_distance);
@@ -103,7 +103,7 @@ void write_eeprom_trip1() {
 
     for (byte i = 0;i <= EEPROM_VAL_TRIP1 - 1;i++) {
         EEPROM.get( EEPROM_ADDR_TRIP1 + (i * 4), f );
-        DEBUG_PRINT(String(i*4, DEC) + F(": ") + String(f, DEC));
+        //DEBUG_PRINT(String(EEPROM_ADDR_TRIP1 + i*4, DEC) + F(": ") + String(f, DEC));
         //DEBUG_PRINT(F(": "));
         //DEBUG_PRINT(f);
         if ( f > tmp ) {
@@ -133,7 +133,7 @@ void write_eeprom_trip1() {
         rndnum = random(0,EEPROM_VAL_TRIP1);
     }*/
 
-    DEBUG_PRINT(" TRIP: " + String(trip_distance, DEC));
+    //DEBUG_PRINT(" TRIP: " + String(trip_distance, DEC));
     //DEBUG_PRINT(trip_distance);
     if ( tmp + EEPROM_SAVE_TRIP1 <= trip_distance  ) {
         /*DEBUG_PRINT(F("WRITE: "));

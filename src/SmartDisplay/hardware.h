@@ -73,9 +73,13 @@
 //Menu and Feature defination
 #define MENU_clock 1
 #define MENU_speed 2
+#ifndef DEBUG
 #define MENU_bord_voltage_int 3
+#endif
 #define MENU_trip 4
+#ifndef DEBUG
 #define MENU_altitude 5
+#endif
 #define MENU_CAN 6
 #define MENU_CAN_NEXT 7
 #define MENU_gps 8

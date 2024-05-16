@@ -44,7 +44,7 @@
 
 // define key behavior 
 #define KEY_DEBOUNCE 20
-#define KEY_LONGPRESS 3000
+#define KEY_LONGPRESS 2000
 
 // Time to disable the Display in Standby mode
 // Only used for OLED Displays
@@ -58,6 +58,9 @@
 
 // time between trip calculation
 #define TRIP_CALC_TIMER 10000
+// save trip only if distance is > x km
+#define EEPROM_SAVE_TRIP1 5
+
 
 // GPS Speed Offset
 #define GPS_SPEED_OFFSET 0
@@ -68,5 +71,4 @@
 
 
 
-// save trip only if distance is > x km
-#define EEPROM_SAVE_TRIP1 1
+

@@ -249,9 +249,10 @@ void display() {
 
 
             default: 
-                menu_clock();
-                MainMenuPos = 1;
-                display_menu_set = true;
+                //menu_clock();
+                //MainMenuPos = 1;
+                MainMenuPos++;
+                //display_menu_set = true;
                 break;
             
         }

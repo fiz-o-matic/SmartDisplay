@@ -15,10 +15,12 @@
 void read_eeprom_config() {
     DEBUG_PRINT("=== EEPROM Settings ===");
     EEPROM.get(EEPROM_ADDR_CONTRAST, contrast);
-    DEBUG_PRINT("Contrast: " + String(contrast));
+    DEBUG_PRINT(String(EEPROM_ADDR_CONTRAST) + ": Contrast: " + String(contrast));
     if ( contrast > 10 ) contrast = 4;
     EEPROM.get(EEPROM_ADDR_AUTOSWITCH, autoswitch);
+    DEBUG_PRINT(String(EEPROM_ADDR_AUTOSWITCH) + ": Autoswitch: " + String(autoswitch));
     EEPROM.get(EEPROM_ADDR_SPEEDOFFSET, speed_offset);
+    DEBUG_PRINT(String(EEPROM_ADDR_SPEEDOFFSET) + ": Speed Offset: " + String(speed_offset));
 }
 
 void save_eeprom_config() {
