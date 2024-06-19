@@ -104,7 +104,7 @@ void key_short() {
             if ( contrast > 10 ) contrast = 1;
             break;
         case MENU_Info + 2:
-            DEBUG_PRINT("Autoswitch : " + String(autoswitch));
+            DEBUG_PRINT("Auto Switch : " + String(autoswitch));
             autoswitch++;
             if ( autoswitch > 1 ) autoswitch = 0;
             break;
