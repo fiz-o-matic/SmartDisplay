@@ -36,3 +36,6 @@ TinyGPS / CAN
 
 Contrast
 - u8g2.setContrast(20)
+
+Anzeige für Values bei mehr als 5 Stellen
+- verschieben vom Suffix etwas nach oben so das es keine Überschneidung gibt.

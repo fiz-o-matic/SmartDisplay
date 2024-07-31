@@ -21,7 +21,7 @@
 
  
 #define VERSION_SW "0.9.4"
-#define BUILD "20240516"
+#define BUILD "20240801"
 
 /*
  * mendatory hardware defination

@@ -6,7 +6,7 @@
 #ifdef CANBUS
 #include <ACAN2515.h>
 #include "canbus.h"
-#include "canvalues.h"
+//#include "canvalues.h"
 
 //#define DISPLAY_ADDR 0xF0
 #define DISPLAY_ADDR 0x6F0
@@ -169,7 +169,7 @@ static void read(CANMessage frame) {
 
     switch ( frame.id ) {
         case DISPLAY_ADDR + 0x01:
-            // receive a reply for a desplay request
+            // receive a reply for a display request
             DEBUG_PRINT("receive display description for 0x" + String(frame.data16[0], HEX));
             if ( frame.data16[0] == display_req_addr ) {
                 display_msg_type = frame.data[2];

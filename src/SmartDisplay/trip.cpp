@@ -24,9 +24,12 @@ void calc_trip() {
 
   if ( gps_latitude_old != 0 ) {
     trip_distance_tmp = get_distance(gps_latitude, gps_longitude, gps_latitude_old, gps_longitude_old);
-    trip_distance += trip_distance_tmp / 1000;
-    gps_latitude_old = gps_latitude;
-    gps_longitude_old = gps_longitude;
+    if ( trip_distance_tmp > 1000 ) {
+        trip_distance += trip_distance_tmp / 1000;
+        gps_latitude_old = gps_latitude;
+        gps_longitude_old = gps_longitude;
+    }
+    
 
     //write_eeprom_trip1();
   }
