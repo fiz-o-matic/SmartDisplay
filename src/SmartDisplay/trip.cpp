@@ -13,33 +13,32 @@
 
 
 void calc_trip() {
-  if ( !timer_check(&trip_timer, TRIP_CALC_TIMER) ) return;
-  
-  // write eeprom even if engine is off
-  write_eeprom_trip1();
-  
-  if ( !engine_running ) return;
+    if ( !timer_check(&trip_timer, TRIP_CALC_TIMER) ) return;
+    
+    // write eeprom even if engine is off
+    write_eeprom_trip1();
+    
+    // return if engine is not running
+    if ( !engine_running ) return;
 
-  
+    if ( gps_latitude_old != 0 ) {
+        trip_distance_tmp = get_distance(gps_latitude, gps_longitude, gps_latitude_old, gps_longitude_old);
+        if ( trip_distance_tmp > 1000 ) {
+            trip_distance += trip_distance_tmp / 1000;
+            gps_latitude_old = gps_latitude;
+            gps_longitude_old = gps_longitude;
+        }
+        
 
-  if ( gps_latitude_old != 0 ) {
-    trip_distance_tmp = get_distance(gps_latitude, gps_longitude, gps_latitude_old, gps_longitude_old);
-    if ( trip_distance_tmp > 1000 ) {
-        trip_distance += trip_distance_tmp / 1000;
+        //write_eeprom_trip1();
+    }
+    else {
         gps_latitude_old = gps_latitude;
         gps_longitude_old = gps_longitude;
     }
-    
 
-    //write_eeprom_trip1();
-  }
-  else {
-    gps_latitude_old = gps_latitude;
-    gps_longitude_old = gps_longitude;
-  }
-
-  //trip_time_tmp = unixTime(hour, minute, second, year, month, day);
-  //trip_time += trip_time_tmp - trip_time_old;
+    //trip_time_tmp = unixTime(hour, minute, second, year, month, day);
+    //trip_time += trip_time_tmp - trip_time_old;
 
 }
 
